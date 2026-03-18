@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Pop Up Planners NYC</title>
+<meta name="description" content="Full-service pop-up production and brand activation services in New York City. Brand activations, corporate events, remote production, content creation, and end-to-end event management.">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple-deep: #2D0A5C;
+    --purple-mid: #6B21C8;
+    --purple-bright: #9B4DFF;
+    --purple-soft: #C084FC;
+    --yellow: #FFE135;
+    --coral: #FF5E5B;
+    --teal: #00D4AA;
+    --cream: #FFF8F0;
+    --dark: #120824;
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; cursor: none; }
+
+  .cursor { width: 12px; height: 12px; background: var(--purple-bright); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease, background 0.2s ease; transform: translate(-50%, -50%); }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--purple-bright); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.25s ease; opacity: 0.6; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,248,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(107,33,200,0.08); }
+  .nav-logo { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 900; letter-spacing: -0.02em; color: var(--purple-deep); display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-p { width: 32px; height: 32px; background: var(--purple-bright); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 17px; font-weight: 900; transform: rotate(-4deg); transition: transform 0.2s; }
+  .logo-p:hover { transform: rotate(4deg) scale(1.1); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--purple-deep); opacity: 0.7; transition: opacity 0.2s; letter-spacing: 0.02em; }
+  .nav-links a:hover, .nav-links a.active { opacity: 1; }
+  .nav-links a.active { color: var(--purple-bright); }
+  .nav-cta { background: var(--purple-deep) !important; color: var(--yellow) !important; padding: 10px 22px !important; border-radius: 100px; opacity: 1 !important; font-size: 13px !important; }
+  .nav-cta:hover { background: var(--purple-bright) !important; }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 160px 48px 80px;
+    background: var(--purple-deep);
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: 'Services';
+    position: absolute;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 180px; font-weight: 900;
+    color: white; opacity: 0.03;
+    bottom: -20px; right: -20px;
+    line-height: 1; pointer-events: none;
+    white-space: nowrap;
+  }
+  .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; pointer-events: none; }
+  .hb1 { width: 400px; height: 400px; background: var(--purple-bright); top: -100px; right: 100px; }
+  .hb2 { width: 250px; height: 250px; background: var(--coral); bottom: -50px; left: 200px; }
+  .page-hero-inner { position: relative; max-width: 700px; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .breadcrumb a { font-size: 12px; color: white; opacity: 0.45; text-decoration: none; transition: opacity 0.2s; }
+  .breadcrumb a:hover { opacity: 0.8; }
+  .breadcrumb span { font-size: 12px; color: white; opacity: 0.25; }
+  .breadcrumb-current { font-size: 12px; color: var(--yellow); opacity: 0.8; }
+  .page-hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(36px, 5vw, 62px); font-weight: 900; color: white; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 20px; }
+  .page-hero h1 span { color: var(--yellow); }
+  .page-hero p { font-size: 17px; color: white; opacity: 0.6; line-height: 1.75; font-weight: 300; max-width: 560px; margin-bottom: 36px; }
+  .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 100px; }
+
+  /* SERVICE NAV TABS */
+  .service-tabs {
+    background: white;
+    border-bottom: 1px solid rgba(107,33,200,0.08);
+    position: sticky; top: 72px; z-index: 90;
+    overflow-x: auto;
+  }
+  .service-tabs-inner { display: flex; padding: 0 48px; gap: 0; }
+  .tab-link {
+    display: flex; align-items: center; gap: 8px;
+    padding: 18px 24px;
+    font-size: 13px; font-weight: 500;
+    color: var(--purple-deep); opacity: 0.5;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: opacity 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .tab-link:hover { opacity: 0.85; }
+  .tab-link.active { opacity: 1; color: var(--purple-bright); border-bottom-color: var(--purple-bright); }
+  .tab-icon { font-size: 16px; }
+
+  /* SERVICE SECTIONS */
+  .service-section { padding: 90px 48px; position: relative; }
+  .service-section:nth-child(even) { background: white; }
+  .service-section:nth-child(odd) { background: var(--cream); }
+
+  .service-inner { max-width: 1100px; margin: 0 auto; }
+
+  .service-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-bottom: 64px; }
+  .service-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 16px;
+  }
+  .service-label.purple { color: var(--purple-bright); }
+  .service-label.coral { color: var(--coral); }
+  .service-label.teal { color: var(--teal); }
+  .service-label.yellow { color: #b8950a; }
+  .service-label.dark { color: var(--purple-mid); }
+
+  .service-num { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 900; }
+  .service-num.purple { background: rgba(155,77,255,0.12); color: var(--purple-bright); }
+  .service-num.coral { background: rgba(255,94,91,0.12); color: var(--coral); }
+  .service-num.teal { background: rgba(0,212,170,0.12); color: var(--teal); }
+  .service-num.yellow { background: rgba(255,225,53,0.15); color: #8a6d00; }
+  .service-num.dark { background: rgba(107,33,200,0.1); color: var(--purple-mid); }
+
+  .service-header h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+  .service-header p { font-size: 15px; line-height: 1.8; color: var(--purple-deep); opacity: 0.65; font-weight: 300; }
+  .service-header-right { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; }
+
+  /* IDEAL FOR TAG */
+  .ideal-for { background: var(--purple-deep); border-radius: 16px; padding: 20px 24px; }
+  .ideal-for-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple-soft); font-weight: 600; margin-bottom: 10px; }
+  .ideal-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ideal-pill { background: rgba(255,255,255,0.1); color: white; font-size: 11px; padding: 5px 12px; border-radius: 100px; font-weight: 500; }
+
+  /* STARTING FROM */
+  .starting-from { background: var(--yellow); border-radius: 16px; padding: 20px 24px; }
+  .sf-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple-deep); opacity: 0.6; font-weight: 600; margin-bottom: 4px; }
+  .sf-price { font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; }
+  .sf-note { font-size: 12px; color: var(--purple-deep); opacity: 0.6; font-weight: 300; margin-top: 2px; }
+
+  /* CONTENT GRID */
+  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+
+  /* CHECKLIST CARD */
+  .checklist-card { background: white; border-radius: 20px; padding: 32px 28px; border: 1px solid rgba(107,33,200,0.08); }
+  .service-section:nth-child(even) .checklist-card { background: var(--cream); }
+  .card-title { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: var(--purple-deep); letter-spacing: -0.02em; margin-bottom: 20px; }
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .checklist li { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; line-height: 1.55; color: var(--purple-deep); font-weight: 300; }
+  .check { width: 20px; height: 20px; min-width: 20px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; margin-top: 1px; }
+  .check.purple { background: rgba(155,77,255,0.12); color: var(--purple-bright); }
+  .check.coral { background: rgba(255,94,91,0.12); color: var(--coral); }
+  .check.teal { background: rgba(0,212,170,0.15); color: #007a62; }
+  .check.yellow { background: rgba(255,225,53,0.2); color: #7a5e00; }
+  .check.dark { background: rgba(107,33,200,0.1); color: var(--purple-mid); }
+
+  /* TIMELINE CARD */
+  .timeline-card { background: white; border-radius: 20px; padding: 32px 28px; border: 1px solid rgba(107,33,200,0.08); }
+  .service-section:nth-child(even) .timeline-card { background: var(--cream); }
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 15px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(to bottom, var(--purple-bright), var(--purple-soft)); opacity: 0.25; }
+  .tl-item { display: flex; gap: 16px; align-items: flex-start; padding-bottom: 20px; position: relative; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot { width: 31px; height: 31px; min-width: 31px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; font-family: 'Unbounded', sans-serif; position: relative; z-index: 1; }
+  .tl-dot.purple { background: var(--purple-bright); color: white; }
+  .tl-dot.coral { background: var(--coral); color: white; }
+  .tl-dot.teal { background: var(--teal); color: var(--purple-deep); }
+  .tl-dot.yellow { background: var(--yellow); color: var(--purple-deep); }
+  .tl-dot.dark { background: var(--purple-deep); color: white; }
+  .tl-content { padding-top: 5px; }
+  .tl-week { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; opacity: 0.45; margin-bottom: 3px; }
+  .tl-title { font-size: 13px; font-weight: 500; color: var(--purple-deep); margin-bottom: 3px; }
+  .tl-desc { font-size: 12px; line-height: 1.55; color: var(--purple-deep); opacity: 0.55; font-weight: 300; }
+
+  /* FULL WIDTH DETAIL */
+  .detail-block { background: var(--purple-deep); border-radius: 20px; padding: 36px 32px; color: white; margin-bottom: 24px; }
+  .detail-block h4 { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .detail-block p { font-size: 14px; line-height: 1.75; opacity: 0.65; font-weight: 300; }
+
+  .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .detail-item { background: white; border-radius: 16px; padding: 24px 20px; border: 1px solid rgba(107,33,200,0.08); }
+  .service-section:nth-child(even) .detail-item { background: var(--cream); }
+  .detail-icon { font-size: 24px; margin-bottom: 12px; }
+  .detail-item h5 { font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700; color: var(--purple-deep); letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3; }
+  .detail-item p { font-size: 12px; line-height: 1.6; color: var(--purple-deep); opacity: 0.6; font-weight: 300; }
+
+  /* DIVIDER */
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(107,33,200,0.12), transparent); margin: 0 48px; }
+
+  /* FAQ */
+  .faq-section { padding: 90px 48px; background: var(--purple-deep); }
+  .faq-section .section-tag { color: var(--yellow); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .faq-section h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; color: white; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 56px; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 1100px; margin: 0 auto; }
+  .faq-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; transition: background 0.2s; }
+  .faq-item:hover { background: rgba(255,255,255,0.09); }
+  .faq-q { padding: 22px 24px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; gap: 16px; }
+  .faq-q span { font-size: 14px; font-weight: 500; color: white; line-height: 1.4; }
+  .faq-toggle { width: 28px; height: 28px; min-width: 28px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: var(--yellow); font-size: 18px; font-weight: 300; transition: transform 0.25s, background 0.2s; }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); background: var(--yellow); color: var(--purple-deep); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s; }
+  .faq-item.open .faq-a { max-height: 400px; }
+  .faq-a-inner { padding: 0 24px 22px; font-size: 13px; line-height: 1.75; color: white; opacity: 0.6; font-weight: 300; }
+
+  /* CONTACT FORM */
+  .contact-section { padding: 90px 48px; background: var(--cream); }
+  .contact-section .section-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple-bright); font-weight: 700; margin-bottom: 12px; }
+  .contact-section h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 56px; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; max-width: 1100px; margin: 0 auto; }
+  .contact-left h3 { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 700; color: var(--purple-deep); letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.3; }
+  .contact-left p { font-size: 14px; line-height: 1.8; color: var(--purple-deep); opacity: 0.6; font-weight: 300; margin-bottom: 32px; }
+  .contact-detail { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .contact-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--purple-bright); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .contact-text { font-size: 13px; color: var(--purple-deep); font-weight: 500; }
+  .contact-text span { display: block; font-size: 10px; opacity: 0.45; font-weight: 300; margin-bottom: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .contact-form { background: white; border-radius: 24px; padding: 40px 36px; box-shadow: 0 20px 60px rgba(45,10,92,0.08); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple-deep); opacity: 0.45; margin-bottom: 8px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 13px 16px; border: 1.5px solid rgba(107,33,200,0.12); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--purple-deep); background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--purple-bright); box-shadow: 0 0 0 4px rgba(155,77,255,0.08); }
+  .form-group textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+  .form-submit { width: 100%; padding: 16px; background: var(--purple-bright); color: white; border: none; border-radius: 100px; font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.02em; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(155,77,255,0.35); }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(155,77,255,0.45); }
+  .form-note { font-size: 11px; opacity: 0.4; text-align: center; margin-top: 12px; font-weight: 300; }
+  .form-success { display: none; text-align: center; padding: 40px 20px; }
+  .form-success .s-icon { font-size: 44px; margin-bottom: 16px; }
+  .form-success h4 { font-family: 'Unbounded', sans-serif; font-size: 17px; font-weight: 700; color: var(--purple-deep); margin-bottom: 10px; }
+  .form-success p { font-size: 13px; color: var(--purple-deep); opacity: 0.6; line-height: 1.7; font-weight: 300; }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: white; padding: 60px 48px 40px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; flex-wrap: wrap; gap: 40px; }
+  .footer-brand .footer-logo { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 900; color: white; margin-bottom: 12px; }
+  .footer-brand .footer-logo span { color: var(--purple-bright); }
+  .footer-brand p { font-size: 13px; opacity: 0.4; max-width: 220px; line-height: 1.6; font-weight: 300; }
+  .footer-links h5 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; margin-bottom: 16px; font-weight: 600; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links ul a { color: white; text-decoration: none; font-size: 13px; opacity: 0.6; transition: opacity 0.2s; }
+  .footer-links ul a:hover { opacity: 1; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; opacity: 0.35; flex-wrap: wrap; gap: 12px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-p">P</div>
+    Pop Up Planners
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="index.html#process">How It Works</a></li>
+    <li><a href="index.html#clients">Who We Serve</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote →</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-blob hb1"></div>
+  <div class="hero-blob hb2"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span class="breadcrumb-current">Services</span>
+    </div>
+    <h1>What we <span>produce</span><br>for your brand</h1>
+    <p>Every activation is different. Every brand has its own voice, audience, and goals. Here's exactly what we offer, what's included in each service, and what a realistic timeline looks like — so you know what to expect before you even reach out.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">🏙️ Brand Activations</span>
+      <span class="hero-pill">🌍 Remote Production</span>
+      <span class="hero-pill">📸 Content & Press</span>
+      <span class="hero-pill">💼 Corporate Events</span>
+      <span class="hero-pill">✦ Full Management</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE TABS -->
+<div class="service-tabs">
+  <div class="service-tabs-inner">
+    <a href="#brand-activations" class="tab-link active"><span class="tab-icon">🏙️</span> Brand Activations</a>
+    <a href="#remote-production" class="tab-link"><span class="tab-icon">🌍</span> Remote Production</a>
+    <a href="#content-press" class="tab-link"><span class="tab-icon">📸</span> Content & Press</a>
+    <a href="#corporate" class="tab-link"><span class="tab-icon">💼</span> Corporate Events</a>
+    <a href="#full-management" class="tab-link"><span class="tab-icon">✦</span> Full Management</a>
+  </div>
+</div>
+
+<!-- ─── SERVICE 1: BRAND ACTIVATIONS ─── -->
+<section class="service-section" id="brand-activations">
+  <div class="service-inner">
+    <div class="service-header">
+      <div>
+        <div class="service-label purple">
+          <div class="service-num purple">01</div>
+          Core Service
+        </div>
+        <h2>Brand Activations & Pop-Up Events</h2>
+        <p>A great pop-up isn't just a booth or a rented room — it's a fully designed brand environment that puts your product in people's hands and your name in people's conversations. We handle every layer of production, from finding the right space in the right neighborhood to building out the aesthetic, staffing it with people who actually know your brand, and making sure it runs flawlessly on the day.</p>
+        <p style="margin-top:14px;">Whether it's a two-day product launch in Nolita, a weekend retail pop-up in Williamsburg, or a one-night brand event in the Meatpacking District — we've produced it, and we know what makes it work in New York City specifically.</p>
+      </div>
+      <div class="service-header-right">
+        <div class="ideal-for">
+          <div class="ideal-for-label">Ideal for</div>
+          <div class="ideal-pills">
+            <span class="ideal-pill">Fashion launches</span>
+            <span class="ideal-pill">Beauty brands</span>
+            <span class="ideal-pill">DTC product drops</span>
+            <span class="ideal-pill">Sample sales</span>
+            <span class="ideal-pill">Awareness campaigns</span>
+          </div>
+        </div>
+        <div class="starting-from">
+          <div class="sf-label">Production fee starting from</div>
+          <div class="sf-price">$3,500</div>
+          <div class="sf-note">Event budget is separate — we manage it for you</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="checklist-card">
+        <div class="card-title">What's included</div>
+        <ul class="checklist">
+          <li><span class="check purple">✓</span> Venue scouting across NYC neighborhoods — Soho, Nolita, Williamsburg, LES, Meatpacking, and more</li>
+          <li><span class="check purple">✓</span> Venue negotiation, contract review, and booking management</li>
+          <li><span class="check purple">✓</span> NYC permit research, filing, and compliance — sidewalk, sound, and signage where required</li>
+          <li><span class="check purple">✓</span> Full vendor coordination: furniture rental, florals, A/V, signage, print, and custom fabrication</li>
+          <li><span class="check purple">✓</span> Space layout planning and moodboard development (Full Production package)</li>
+          <li><span class="check purple">✓</span> Brand-trained on-site staff sourcing and briefing</li>
+          <li><span class="check purple">✓</span> Day-of production management from load-in to teardown</li>
+          <li><span class="check purple">✓</span> Real-time updates, photos, and communication throughout</li>
+          <li><span class="check purple">✓</span> Post-event report: attendance, reach, content assets, key learnings</li>
+        </ul>
+      </div>
+      <div class="timeline-card">
+        <div class="card-title">Example timeline — 3-day pop-up</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot purple">W1</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 1</div>
+              <div class="tl-title">Intake call + proposal</div>
+              <div class="tl-desc">We learn your brand, goals, and budget. Full written proposal delivered within 48 hours.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot purple">W2</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 2</div>
+              <div class="tl-title">Venue scouting + contract signed</div>
+              <div class="tl-desc">We shortlist 3–5 venues that fit your brief. You select. We book and handle the contract.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot purple">W3</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 3</div>
+              <div class="tl-title">Moodboard + vendor sourcing</div>
+              <div class="tl-desc">Space design direction presented for your approval. All vendors confirmed and briefed.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot purple">W4</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 4</div>
+              <div class="tl-title">Final run-of-show + staff briefing</div>
+              <div class="tl-desc">Permits confirmed, detailed schedule locked, staff hired and brand-briefed.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot purple">W5</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 5</div>
+              <div class="tl-title">Load-in, event days, teardown</div>
+              <div class="tl-desc">We're on-site from first load-in to final teardown. Live updates to you the whole time.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="detail-icon">📍</div>
+        <h5>NYC neighborhood expertise</h5>
+        <p>We know which blocks in Soho get foot traffic on Saturdays, which Williamsburg venues have loading docks, and which Nolita spaces are permit-friendly. That local knowledge is the difference between a smooth event and a stressful one.</p>
+      </div>
+      <div class="detail-item">
+        <div class="detail-icon">🔒</div>
+        <h5>Vendor relationships that save you money</h5>
+        <p>We work with the same vendors regularly, which means better rates and priority availability. Our network covers furniture rental, florals, custom fabrication, A/V, signage, staffing agencies, and photography.</p>
+      </div>
+      <div class="detail-item">
+        <div class="detail-icon">📋</div>
+        <h5>Permits handled for you</h5>
+        <p>NYC permitting is notoriously confusing. Sidewalk usage, sound amplification, temporary signage, and food service all have different requirements. We know what's needed and file it — so nothing surprises you day-of.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ─── SERVICE 2: REMOTE PRODUCTION ─── -->
+<section class="service-section" id="remote-production">
+  <div class="service-inner">
+    <div class="service-header">
+      <div>
+        <div class="service-label teal">
+          <div class="service-num teal">02</div>
+          Remote-Friendly
+        </div>
+        <h2>Remote Brand Representation</h2>
+        <p>This is our most requested service from international clients and brands headquartered outside New York. You have a brand that needs to show up in NYC — but you can't be there in person. We become your full on-the-ground team. We speak your brand language, execute your vision with precision, and keep you looped in every step of the way.</p>
+        <p style="margin-top:14px;">We've worked with brands based in Europe, the Middle East, and across the US who needed a trusted local partner to run things without them. The result looks exactly like you were there — because in every way that matters, you were.</p>
+      </div>
+      <div class="service-header-right">
+        <div class="ideal-for">
+          <div class="ideal-for-label">Ideal for</div>
+          <div class="ideal-pills">
+            <span class="ideal-pill">International brands</span>
+            <span class="ideal-pill">US market entry</span>
+            <span class="ideal-pill">Out-of-state brands</span>
+            <span class="ideal-pill">Remote marketing teams</span>
+          </div>
+        </div>
+        <div class="starting-from">
+          <div class="sf-label">Included in all packages</div>
+          <div class="sf-price">Always on</div>
+          <div class="sf-note">Every client gets remote-ready communication by default</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="checklist-card">
+        <div class="card-title">What's included</div>
+        <ul class="checklist">
+          <li><span class="check teal">✓</span> Dedicated WhatsApp or Slack channel for real-time communication throughout the project</li>
+          <li><span class="check teal">✓</span> Video walkthroughs of shortlisted venues before you commit</li>
+          <li><span class="check teal">✓</span> Moodboard and design approval process — all async, all documented</li>
+          <li><span class="check teal">✓</span> Live photo and video updates on build day and event day</li>
+          <li><span class="check teal">✓</span> Scheduled check-in calls at each project milestone</li>
+          <li><span class="check teal">✓</span> All contracts, permits, and vendor agreements sent for your review</li>
+          <li><span class="check teal">✓</span> Escrow-based budget management — nothing spent without your sign-off</li>
+          <li><span class="check teal">✓</span> Post-event recap delivered within 5 business days</li>
+        </ul>
+      </div>
+      <div class="timeline-card">
+        <div class="card-title">How remote collaboration works</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot teal">1</div>
+            <div class="tl-content">
+              <div class="tl-week">Discovery</div>
+              <div class="tl-title">Brand deep-dive call</div>
+              <div class="tl-desc">We learn your brand standards, audience, must-haves, and deal-breakers. Usually 45–60 minutes via video call.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot teal">2</div>
+            <div class="tl-content">
+              <div class="tl-week">Planning</div>
+              <div class="tl-title">Async approvals at every stage</div>
+              <div class="tl-desc">Venue options, moodboards, vendor selections — all shared via a shared Google Drive folder for your review. Nothing moves until you approve.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot teal">3</div>
+            <div class="tl-content">
+              <div class="tl-week">Event days</div>
+              <div class="tl-title">Live updates, real time</div>
+              <div class="tl-desc">Photo and video drops throughout load-in and each event day. You'll feel like you're there — from wherever you are.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot teal">4</div>
+            <div class="tl-content">
+              <div class="tl-week">Wrap</div>
+              <div class="tl-title">Full recap delivered to you</div>
+              <div class="tl-desc">Attendance numbers, content assets, press mentions, budget reconciliation, and our honest assessment of what worked and what to do differently next time.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-block">
+      <h4>A note on international clients</h4>
+      <p>We've worked with brands based in Europe and beyond who needed to activate in New York without flying in a team. Time zones, wire transfers, currency considerations, and communication cadence — we've figured all of this out. We invoice in USD, accept international wire via Wise, and schedule all calls to work across time zones. If you're outside the US and want a New York presence, we're the most efficient way to get there.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ─── SERVICE 3: CONTENT & PRESS ─── -->
+<section class="service-section" id="content-press">
+  <div class="service-inner">
+    <div class="service-header">
+      <div>
+        <div class="service-label coral">
+          <div class="service-num coral">03</div>
+          Add-On / Standalone
+        </div>
+        <h2>Content Production & Press Coordination</h2>
+        <p>Your pop-up happens once. The content it generates should last for months. We coordinate photographers, videographers, and content creators on-site so that every activation produces a library of professional assets — product shots, lifestyle photography, short-form video, behind-the-scenes content, and social-ready clips your team can use across every channel long after the event ends.</p>
+        <p style="margin-top:14px;">We also support influencer logistics and press coordination for brands that want media coverage from their activation. We don't run a PR firm, but we know how to set the stage so press and creators want to show up — and know what to do when they arrive.</p>
+      </div>
+      <div class="service-header-right">
+        <div class="ideal-for">
+          <div class="ideal-for-label">Ideal for</div>
+          <div class="ideal-pills">
+            <span class="ideal-pill">Fashion & beauty brands</span>
+            <span class="ideal-pill">Social-first brands</span>
+            <span class="ideal-pill">Press preview events</span>
+            <span class="ideal-pill">Influencer activations</span>
+          </div>
+        </div>
+        <div class="starting-from">
+          <div class="sf-label">Add-on starting from</div>
+          <div class="sf-price">$800</div>
+          <div class="sf-note">Photographer half-day coordination included in Full Production package</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="checklist-card">
+        <div class="card-title">What's included</div>
+        <ul class="checklist">
+          <li><span class="check coral">✓</span> Professional photographer sourcing, briefing, and day-of coordination</li>
+          <li><span class="check coral">✓</span> Videographer coordination for brand films, reels, and recap content</li>
+          <li><span class="check coral">✓</span> Shot list creation based on your brand's content needs</li>
+          <li><span class="check coral">✓</span> Dedicated content creator coordination (UGC-style content for social)</li>
+          <li><span class="check coral">✓</span> Influencer logistics: arrival time coordination, gifting setup, brand briefing</li>
+          <li><span class="check coral">✓</span> Press arrival coordination and media kit staging</li>
+          <li><span class="check coral">✓</span> Content delivery timeline management post-event</li>
+          <li><span class="check coral">✓</span> All raw assets organized and delivered to your team</li>
+        </ul>
+      </div>
+      <div class="timeline-card">
+        <div class="card-title">Content production timeline</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot coral">P</div>
+            <div class="tl-content">
+              <div class="tl-week">2–3 weeks before</div>
+              <div class="tl-title">Brief + shot list creation</div>
+              <div class="tl-desc">We build a shot list with you: hero shots needed, social formats, video length, mood references, and key products to feature.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot coral">B</div>
+            <div class="tl-content">
+              <div class="tl-week">1–2 weeks before</div>
+              <div class="tl-title">Creator & photographer booked</div>
+              <div class="tl-desc">We book and brief all content talent from our NYC network. They receive your brand guidelines and the shot list in advance.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot coral">D</div>
+            <div class="tl-content">
+              <div class="tl-week">Event day</div>
+              <div class="tl-title">On-site content capture</div>
+              <div class="tl-desc">All creators are coordinated by us so they're not in each other's way — and you're getting every angle you need.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot coral">A</div>
+            <div class="tl-content">
+              <div class="tl-week">3–7 days after</div>
+              <div class="tl-title">Assets delivered</div>
+              <div class="tl-desc">Edited photos and video delivered to your team via shared Drive folder. Ready to post.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ─── SERVICE 4: CORPORATE ─── -->
+<section class="service-section" id="corporate">
+  <div class="service-inner">
+    <div class="service-header">
+      <div>
+        <div class="service-label yellow">
+          <div class="service-num yellow">04</div>
+          Corporate & B2B
+        </div>
+        <h2>Corporate Events & B2B Activations</h2>
+        <p>Corporate events in New York need to impress — and the stakes are higher when clients, partners, or investors are in the room. We produce polished, detail-oriented corporate experiences that reflect your company's standards without you having to manage a single vendor call.</p>
+        <p style="margin-top:14px;">From intimate client dinners in private dining rooms to product showcases in branded event spaces, from conference side-events to executive team experiences — we handle the logistics, aesthetics, and on-the-ground execution so your team can focus on the people in the room.</p>
+      </div>
+      <div class="service-header-right">
+        <div class="ideal-for">
+          <div class="ideal-for-label">Ideal for</div>
+          <div class="ideal-pills">
+            <span class="ideal-pill">Product showcases</span>
+            <span class="ideal-pill">Client dinners</span>
+            <span class="ideal-pill">Team retreats</span>
+            <span class="ideal-pill">Conference activations</span>
+            <span class="ideal-pill">Executive events</span>
+          </div>
+        </div>
+        <div class="starting-from">
+          <div class="sf-label">Production fee starting from</div>
+          <div class="sf-price">$3,500</div>
+          <div class="sf-note">Scales with event size and complexity</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="checklist-card">
+        <div class="card-title">What's included</div>
+        <ul class="checklist">
+          <li><span class="check yellow">✓</span> Venue sourcing tailored to corporate context — private dining, hotel event spaces, branded lofts, conference venues</li>
+          <li><span class="check yellow">✓</span> Catering coordination and menu planning (dietary requirements, brand alignment)</li>
+          <li><span class="check yellow">✓</span> A/V setup, presentation tech, and run-of-show scripting</li>
+          <li><span class="check yellow">✓</span> Guest list logistics, check-in management, and hospitality staffing</li>
+          <li><span class="check yellow">✓</span> Brand environment setup — signage, branded materials, ambient design</li>
+          <li><span class="check yellow">✓</span> Vendor management: florals, lighting, transportation if needed</li>
+          <li><span class="check yellow">✓</span> On-site event management from setup to close</li>
+          <li><span class="check yellow">✓</span> Post-event summary and budget reconciliation</li>
+        </ul>
+      </div>
+      <div class="timeline-card">
+        <div class="card-title">Example timeline — corporate dinner (40 guests)</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot yellow">W1</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 1</div>
+              <div class="tl-title">Brief + venue search begins</div>
+              <div class="tl-desc">Goals, guest count, format, and budget confirmed. Private dining venue shortlist delivered within 3 business days.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot yellow">W2</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 2</div>
+              <div class="tl-title">Venue confirmed + vendors booked</div>
+              <div class="tl-desc">Catering briefed, A/V arranged, run-of-show drafted and shared with your team for review.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot yellow">W3</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 3</div>
+              <div class="tl-title">Branded materials + final details</div>
+              <div class="tl-desc">Menus, place cards, signage, and any branded elements finalized and ordered. Guest list and arrival process confirmed.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot yellow">E</div>
+            <div class="tl-content">
+              <div class="tl-week">Event day</div>
+              <div class="tl-title">We're on-site the whole time</div>
+              <div class="tl-desc">From venue setup to the last guest leaving. Your team focuses on relationships — we handle everything else.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ─── SERVICE 5: FULL MANAGEMENT ─── -->
+<section class="service-section" id="full-management">
+  <div class="service-inner">
+    <div class="service-header">
+      <div>
+        <div class="service-label dark">
+          <div class="service-num dark">05</div>
+          Full Package
+        </div>
+        <h2>End-to-End Event Management</h2>
+        <p>For brands that want a single point of contact for every aspect of their NYC activation — this is our most comprehensive offering. You bring us the brief and the budget. We handle everything from concept development through teardown, with full transparency at every stage and zero surprises on the invoice.</p>
+        <p style="margin-top:14px;">This is the right choice for brands doing their first New York activation, international clients who need a fully managed solution, or any campaign where the stakes are high and the margin for error is low.</p>
+      </div>
+      <div class="service-header-right">
+        <div class="ideal-for">
+          <div class="ideal-for-label">Ideal for</div>
+          <div class="ideal-pills">
+            <span class="ideal-pill">First NYC activation</span>
+            <span class="ideal-pill">International brands</span>
+            <span class="ideal-pill">High-stakes launches</span>
+            <span class="ideal-pill">Multi-day events</span>
+            <span class="ideal-pill">Campaign-level work</span>
+          </div>
+        </div>
+        <div class="starting-from">
+          <div class="sf-label">Production fee starting from</div>
+          <div class="sf-price">$7,500</div>
+          <div class="sf-note">Full Production package · event budget up to $50k</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="checklist-card">
+        <div class="card-title">Everything that's included</div>
+        <ul class="checklist">
+          <li><span class="check dark">✓</span> Concept development, creative direction, and moodboarding</li>
+          <li><span class="check dark">✓</span> Full venue search, negotiation, and contract management</li>
+          <li><span class="check dark">✓</span> NYC permit filing and regulatory compliance</li>
+          <li><span class="check dark">✓</span> Complete vendor network — build, fabrication, furniture, florals, A/V, signage, catering</li>
+          <li><span class="check dark">✓</span> Brand-trained staffing — sourced, hired, briefed, and managed by us</li>
+          <li><span class="check dark">✓</span> Photography and video crew coordination</li>
+          <li><span class="check dark">✓</span> Influencer and press logistics support</li>
+          <li><span class="check dark">✓</span> Master run-of-show and detailed day-of schedule</li>
+          <li><span class="check dark">✓</span> Escrow-based budget management with full line-item transparency</li>
+          <li><span class="check dark">✓</span> On-site production management, load-in to teardown</li>
+          <li><span class="check dark">✓</span> Real-time updates and communication throughout</li>
+          <li><span class="check dark">✓</span> Detailed post-event analytics report within 5 business days</li>
+        </ul>
+      </div>
+      <div class="timeline-card">
+        <div class="card-title">Full production timeline — 6 weeks</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot dark">W1</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 1</div>
+              <div class="tl-title">Discovery + proposal</div>
+              <div class="tl-desc">Brand deep-dive, goals alignment, budget confirmation. Full written proposal in 48 hours.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dark">W2</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 2</div>
+              <div class="tl-title">Creative direction + venue search</div>
+              <div class="tl-desc">Moodboard and concept presented. Venue shortlist delivered. 50% deposit due on contract signing.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dark">W3</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 3</div>
+              <div class="tl-title">Venue locked + all vendors briefed</div>
+              <div class="tl-desc">Space confirmed, all vendors contracted and briefed. Permit filings submitted to relevant NYC agencies.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dark">W4</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 4</div>
+              <div class="tl-title">Content + staffing confirmed</div>
+              <div class="tl-desc">Photography/video booked and briefed. Staff hired and brand-trained. Remaining balance due this week.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dark">W5</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 5</div>
+              <div class="tl-title">Final run-of-show locked</div>
+              <div class="tl-desc">Minute-by-minute schedule, all vendor arrival times, staff assignments, and contingency plans finalized.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot dark">W6</div>
+            <div class="tl-content">
+              <div class="tl-week">Week 6</div>
+              <div class="tl-title">Event days + post-event report</div>
+              <div class="tl-desc">Full on-site production management. Report delivered within 5 business days of wrap.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="detail-icon">💳</div>
+        <h5>How the budget works</h5>
+        <p>Your event budget is held separately from our fee. We pay vendors directly from your escrow and provide full line-item reporting. You always know where every dollar is — before and after the event.</p>
+      </div>
+      <div class="detail-item">
+        <div class="detail-icon">🛡️</div>
+        <h5>What happens if something goes wrong</h5>
+        <p>We carry general liability insurance on all events. We build contingency float into every budget. And we have backup vendor relationships so a last-minute cancellation doesn't derail your event.</p>
+      </div>
+      <div class="detail-item">
+        <div class="detail-icon">📊</div>
+        <h5>Post-event reporting</h5>
+        <p>Within 5 business days: attendance numbers, estimated social reach, press coverage secured, all content assets organized, budget reconciliation, and our honest debrief on what to do differently next time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag">Common questions</div>
+    <h2>Everything you might<br>want to know</h2>
+    <div class="faq-grid">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How far in advance do I need to book?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">For most activations, we recommend a minimum of 4–6 weeks of lead time. This gives us enough runway to source and secure the right venue, file any necessary permits, and get all vendors confirmed without rushing. That said, we've produced events in tighter windows — if your timeline is urgent, reach out and tell us what you're working with. We'll be honest about what's realistic.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What is the difference between your fee and the event budget?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Our production fee is what you pay us for our time, expertise, and management. The event budget is the money that pays for the actual event — venue rental, vendors, staffing, permits, build costs, catering, and so on. These are always kept separate and clearly presented in your proposal. We never mix them up or hide costs. You'll always see exactly where every dollar is going before you approve anything.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do I need to be in New York for the event?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Not at all — that's the whole point. We're designed to work with clients who are remote. You'll receive regular updates, photos, and real-time communication throughout build and event days. Many of our clients have never set foot in the venue we've used for them. If you want to attend, of course you're welcome. But it's never required for the event to go smoothly.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How does payment work?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We require a 50% deposit of our production fee at contract signing, and the remaining 50% is due 7 days before the event. Your event budget is held in a separate account and funded by you before we pay any vendors — we never front costs from our own pocket, and we never ask you to reimburse us after the fact. For international clients, we accept wire transfers via Wise and invoice in USD.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can you work with brands that have never done a pop-up before?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — and honestly, first-timers are some of our favorite clients to work with. You don't need to come in with a fully formed brief or a detailed vision. We'll guide you through it: what questions to ask yourself, what budget ranges are realistic for what you want, which neighborhoods make sense for your brand, and what a reasonable timeline looks like. We're a resource, not just an executor.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What neighborhoods in NYC do you work in?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">All of them — but we have deep relationships in the neighborhoods that most brand activations happen in: Soho, Nolita, the Lower East Side, Williamsburg, Greenpoint, the Meatpacking District, Chelsea, and Midtown. Each neighborhood has its own personality, foot traffic patterns, and permit considerations. Part of our value is knowing which one is actually right for your brand and your goals.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you handle pop-up permits in NYC?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. NYC permitting is complicated and varies depending on your event type, location, and what you're doing — sidewalk use, sound amplification, food service, and temporary signage all have different requirements and different filing agencies. We research what's needed for your specific event, file on your behalf, and follow up to make sure everything is confirmed before event day. It's one less thing for you to worry about.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can you do ongoing work or retainers?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. If you're a brand that runs seasonal activations, multiple events per year, or wants a consistent NYC presence across a campaign, we offer retainer and campaign-level pricing. This gives you priority scheduling, dedicated account management, and better rates across the board. Reach out and we'll put together a custom proposal based on your calendar and goals.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="contact-section" id="contact">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-tag">Start your project</div>
+    <h2>Ready to bring your<br>brand to New York?</h2>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h3>Tell us what you're thinking. We'll take it from there.</h3>
+        <p>You don't need a finished brief or a locked budget to reach out. Share what you're working toward and we'll come back with honest guidance, realistic options, and a full proposal within 48 hours — no commitment required.</p>
+        <div class="contact-detail">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text"><span>Based in</span>New York City, NY</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">⚡</div>
+          <div class="contact-text"><span>Proposal turnaround</span>Within 48 hours</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">🌍</div>
+          <div class="contact-text"><span>Clients</span>Worldwide — remote-friendly</div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📅</div>
+          <div class="contact-text"><span>Minimum lead time</span>3–4 weeks recommended</div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div id="formContent">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First name</label>
+              <input type="text" id="firstName" placeholder="Sarah" />
+            </div>
+            <div class="form-group">
+              <label>Last name</label>
+              <input type="text" id="lastName" placeholder="Kim" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Brand / company name</label>
+            <input type="text" id="brandName" placeholder="Your Brand Name" />
+          </div>
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" id="email" placeholder="sarah@yourbrand.com" />
+          </div>
+          <div class="form-group">
+            <label>Which service are you interested in?</label>
+            <select id="serviceType">
+              <option value="" disabled selected>Select a service</option>
+              <option>Brand Activation & Pop-Up</option>
+              <option>Remote Brand Representation</option>
+              <option>Content & Press Production</option>
+              <option>Corporate or B2B Event</option>
+              <option>End-to-End Full Management</option>
+              <option>Not sure yet — need guidance</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Estimated budget</label>
+              <select id="budget">
+                <option value="" disabled selected>Select a range</option>
+                <option>Under $10,000</option>
+                <option>$10,000 – $25,000</option>
+                <option>$25,000 – $50,000</option>
+                <option>$50,000+</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Timeframe</label>
+              <select id="timeframe">
+                <option value="" disabled selected>When are you thinking?</option>
+                <option>Within 4 weeks</option>
+                <option>1–3 months out</option>
+                <option>3–6 months out</option>
+                <option>6+ months out</option>
+                <option>Just exploring</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tell us about your brand and vision</label>
+            <textarea id="message" placeholder="What are you trying to achieve? Who's your audience? Any references or inspiration? Share as much or as little as you have."></textarea>
+          </div>
+          <button class="form-submit" onclick="submitForm()">Send my inquiry ✦</button>
+          <p class="form-note">We respond within 24 hours. No spam, ever.</p>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="s-icon">✦</div>
+          <h4>Message received!</h4>
+          <p>Thanks for reaching out. We'll review your inquiry and be back in touch within 24 hours — with a full proposal following within 48.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><span>P</span>op Up Planners</div>
+      <p>NYC-based pop-up production for brands that can't be here — but need to be.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#brand-activations">Brand Activations</a></li>
+        <li><a href="#remote-production">Remote Production</a></li>
+        <li><a href="#content-press">Content & Press</a></li>
+        <li><a href="#corporate">Corporate Events</a></li>
+        <li><a href="#full-management">Full Management</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="index.html#process">How It Works</a></li>
+        <li><a href="index.html#clients">Who We Serve</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Pop Up Planners LLC. All rights reserved. New York City.</span>
+    <span>Made in NYC ✦</span>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .faq-item, input, select, textarea').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      cursor.style.background = 'var(--yellow)';
+      ring.style.opacity = '0.3';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      cursor.style.background = 'var(--purple-bright)';
+      ring.style.opacity = '0.6';
+    });
+  });
+
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Sticky tab highlight on scroll
+  const sections = document.querySelectorAll('.service-section[id]');
+  const tabLinks = document.querySelectorAll('.tab-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 160) current = s.id;
+    });
+    tabLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+
+  function submitForm() {
+    const required = ['firstName', 'email', 'brandName', 'serviceType'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = 'var(--coral)'; valid = false; }
+      else el.style.borderColor = '';
+    });
+    if (!valid) return;
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
+</body>
+</html>
