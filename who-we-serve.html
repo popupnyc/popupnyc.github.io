@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who We Serve — Pop Up Planners NYC</title>
+<meta name="description" content="Pop Up Planners works with fashion and beauty brands, DTC brands, international businesses, and corporate clients who need a trusted NYC pop-up production partner.">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple-deep: #2D0A5C;
+    --purple-mid: #6B21C8;
+    --purple-bright: #9B4DFF;
+    --purple-soft: #C084FC;
+    --yellow: #FFE135;
+    --coral: #FF5E5B;
+    --teal: #00D4AA;
+    --cream: #FFF8F0;
+    --dark: #120824;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; cursor: none; }
+
+  .cursor { width: 12px; height: 12px; background: var(--purple-bright); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease, background 0.2s ease; transform: translate(-50%, -50%); }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--purple-bright); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.25s ease; opacity: 0.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,248,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(107,33,200,0.08); }
+  .nav-logo { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 900; letter-spacing: -0.02em; color: var(--purple-deep); display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-p { width: 32px; height: 32px; background: var(--purple-bright); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 17px; font-weight: 900; transform: rotate(-4deg); transition: transform 0.2s; }
+  .logo-p:hover { transform: rotate(4deg) scale(1.1); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--purple-deep); opacity: 0.7; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-links a.active { opacity: 1; color: var(--purple-bright); }
+  .nav-cta { background: var(--purple-deep) !important; color: var(--yellow) !important; padding: 10px 22px !important; border-radius: 100px; opacity: 1 !important; font-size: 13px !important; }
+  .nav-cta:hover { background: var(--purple-bright) !important; }
+
+  .page-hero { padding: 160px 48px 90px; background: var(--purple-deep); position: relative; overflow: hidden; }
+  .page-hero::before { content: 'Clients'; position: absolute; font-family: 'Unbounded', sans-serif; font-size: 180px; font-weight: 900; color: white; opacity: 0.03; bottom: -20px; right: -10px; line-height: 1; pointer-events: none; white-space: nowrap; }
+  .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; pointer-events: none; }
+  .hb1 { width: 420px; height: 420px; background: var(--purple-bright); top: -120px; right: 80px; }
+  .hb2 { width: 260px; height: 260px; background: var(--yellow); bottom: -60px; left: 160px; }
+  .page-hero-inner { position: relative; max-width: 680px; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .breadcrumb a { font-size: 12px; color: white; opacity: 0.45; text-decoration: none; }
+  .breadcrumb a:hover { opacity: 0.8; }
+  .breadcrumb span { font-size: 12px; color: white; opacity: 0.25; }
+  .breadcrumb-current { font-size: 12px; color: var(--yellow); opacity: 0.8; }
+  .page-hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(34px, 5vw, 58px); font-weight: 900; color: white; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 20px; }
+  .page-hero h1 span { color: var(--yellow); }
+  .page-hero p { font-size: 16px; color: white; opacity: 0.6; line-height: 1.75; font-weight: 300; max-width: 540px; margin-bottom: 36px; }
+  .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 100px; }
+
+  .client-nav { background: white; border-bottom: 1px solid rgba(107,33,200,0.08); position: sticky; top: 72px; z-index: 90; overflow-x: auto; }
+  .client-nav-inner { display: flex; padding: 0 48px; }
+  .cnav-link { display: flex; align-items: center; gap: 8px; padding: 18px 24px; font-size: 13px; font-weight: 500; color: var(--purple-deep); opacity: 0.5; text-decoration: none; border-bottom: 2px solid transparent; transition: opacity 0.2s, border-color 0.2s; white-space: nowrap; }
+  .cnav-link:hover { opacity: 0.85; }
+  .cnav-link.active { opacity: 1; color: var(--purple-bright); border-bottom-color: var(--purple-bright); }
+
+  .client-section { padding: 90px 48px; }
+  .client-section:nth-child(odd) { background: var(--cream); }
+  .client-section:nth-child(even) { background: white; }
+  .cs-inner { max-width: 1100px; margin: 0 auto; }
+
+  .cs-header { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; margin-bottom: 52px; }
+  .cs-badge { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 30px; flex-shrink: 0; }
+  .cs-badge.fashion { background: rgba(255,94,91,0.1); border: 1.5px solid rgba(255,94,91,0.15); }
+  .cs-badge.dtc    { background: rgba(0,212,170,0.1);  border: 1.5px solid rgba(0,212,170,0.15); }
+  .cs-badge.intl   { background: rgba(155,77,255,0.1); border: 1.5px solid rgba(155,77,255,0.15); }
+  .cs-badge.corp   { background: rgba(45,10,92,0.08);  border: 1.5px solid rgba(45,10,92,0.12); }
+  .cs-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+  .cs-label.fashion { color: var(--coral); }
+  .cs-label.dtc   { color: var(--teal); }
+  .cs-label.intl  { color: var(--purple-bright); }
+  .cs-label.corp  { color: var(--purple-mid); }
+  .cs-header h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(22px, 3vw, 34px); font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+  .cs-header p { font-size: 15px; line-height: 1.8; color: var(--purple-deep); opacity: 0.65; font-weight: 300; max-width: 640px; }
+
+  .cs-grid   { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 20px; }
+  .cs-grid-2 { display: grid; grid-template-columns: 1fr 1fr;       gap: 20px; margin-bottom: 20px; }
+
+  .cs-card { border-radius: 18px; padding: 28px 24px; background: white; border: 1px solid rgba(107,33,200,0.08); }
+  .client-section:nth-child(even) .cs-card { background: var(--cream); }
+  .cs-card-icon { font-size: 22px; margin-bottom: 12px; }
+  .cs-card h4 { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: var(--purple-deep); letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3; }
+  .cs-card p { font-size: 13px; line-height: 1.65; color: var(--purple-deep); opacity: 0.6; font-weight: 300; }
+
+  .accent-card { border-radius: 18px; padding: 32px 28px; }
+  .accent-card.coral  { background: var(--coral);      color: white; }
+  .accent-card.teal   { background: var(--teal);       color: var(--purple-deep); }
+  .accent-card.purple { background: var(--purple-deep); color: white; }
+  .accent-card.dark   { background: var(--dark);       color: white; }
+  .accent-card h4 { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.3; }
+  .accent-card p { font-size: 13px; line-height: 1.75; opacity: 0.8; font-weight: 300; }
+
+  .pill-label { font-size: 11px; color: var(--purple-deep); opacity: 0.4; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill { padding: 7px 15px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+  .pill.coral  { background: rgba(255,94,91,0.1);  color: var(--coral);         border: 1px solid rgba(255,94,91,0.2); }
+  .pill.teal   { background: rgba(0,212,170,0.1);  color: #007a62;              border: 1px solid rgba(0,212,170,0.2); }
+  .pill.purple { background: rgba(155,77,255,0.1); color: var(--purple-bright); border: 1px solid rgba(155,77,255,0.2); }
+  .pill.dark   { background: rgba(45,10,92,0.08);  color: var(--purple-deep);   border: 1px solid rgba(45,10,92,0.15); }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(107,33,200,0.12), transparent); margin: 0 48px; }
+
+  .good-fit { padding: 90px 48px; background: var(--purple-deep); }
+  .good-fit-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .section-title { font-family: 'Unbounded', sans-serif; font-size: clamp(26px,3.5vw,40px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 52px; }
+  .good-fit .section-tag { color: var(--yellow); }
+  .good-fit .section-title { color: white; }
+  .gf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .gf-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 28px 24px; transition: background 0.2s; }
+  .gf-card:hover { background: rgba(255,255,255,0.1); }
+  .gf-icon { font-size: 24px; margin-bottom: 14px; }
+  .gf-card h4 { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: white; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3; }
+  .gf-card p { font-size: 13px; line-height: 1.65; color: white; opacity: 0.55; font-weight: 300; }
+
+  .testimonials { padding: 90px 48px; background: white; }
+  .testimonials-inner { max-width: 1100px; margin: 0 auto; }
+  .testimonials .section-tag  { color: var(--purple-bright); }
+  .testimonials .section-title { color: var(--purple-deep); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .testi-card { background: var(--cream); border: 1px solid rgba(107,33,200,0.08); border-radius: 20px; padding: 28px 24px; }
+  .testi-stars { color: #FFB800; font-size: 13px; margin-bottom: 14px; letter-spacing: 2px; }
+  .testi-quote { font-size: 13px; line-height: 1.75; color: var(--purple-deep); opacity: 0.75; font-weight: 300; font-style: italic; margin-bottom: 20px; }
+  .testi-name { font-size: 13px; font-weight: 600; color: var(--purple-deep); }
+  .testi-company { font-size: 11px; color: var(--purple-deep); opacity: 0.4; margin-top: 3px; font-weight: 300; }
+  .testi-tag { display: inline-block; font-size: 10px; padding: 4px 10px; border-radius: 100px; font-weight: 600; margin-top: 14px; letter-spacing: 0.04em; }
+  .testi-tag.fashion { background: rgba(255,94,91,0.1);  color: var(--coral); }
+  .testi-tag.dtc     { background: rgba(0,212,170,0.1);  color: #007a62; }
+  .testi-tag.intl    { background: rgba(155,77,255,0.12); color: var(--purple-bright); }
+  .testi-tag.corp    { background: rgba(255,225,53,0.15); color: #7a5e00; }
+
+  .cta-strip { padding: 90px 48px; background: var(--purple-deep); text-align: center; }
+  .cta-strip h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px,3.5vw,42px); font-weight: 900; color: white; letter-spacing: -0.03em; line-height: 1.1; max-width: 520px; margin: 0 auto 14px; }
+  .cta-strip h2 span { color: var(--yellow); }
+  .cta-strip p { font-size: 15px; color: white; opacity: 0.55; margin: 0 auto 36px; font-weight: 300; max-width: 380px; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-yellow { background: var(--yellow); color: var(--purple-deep); padding: 16px 36px; border-radius: 100px; font-size: 15px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(255,225,53,0.3); }
+  .btn-yellow:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(255,225,53,0.45); }
+  .btn-ghost { background: transparent; color: white; padding: 16px 32px; border-radius: 100px; font-size: 15px; font-weight: 500; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.25); display: inline-flex; align-items: center; gap: 8px; transition: border-color 0.2s, background 0.2s; }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); }
+
+  footer { background: var(--dark); color: white; padding: 60px 48px 40px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; flex-wrap: wrap; gap: 40px; }
+  .footer-brand .footer-logo { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 900; color: white; margin-bottom: 12px; }
+  .footer-brand .footer-logo span { color: var(--purple-bright); }
+  .footer-brand p { font-size: 13px; opacity: 0.4; max-width: 220px; line-height: 1.6; font-weight: 300; }
+  .footer-links h5 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; margin-bottom: 16px; font-weight: 600; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links ul a { color: white; text-decoration: none; font-size: 13px; opacity: 0.6; transition: opacity 0.2s; }
+  .footer-links ul a:hover { opacity: 1; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; font-size: 12px; opacity: 0.35; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-p">P</div>
+    Pop Up Planners
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="who-we-serve.html" class="active">Who We Serve</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Get a Quote →</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <div class="hero-blob hb1"></div>
+  <div class="hero-blob hb2"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span class="breadcrumb-current">Who We Serve</span>
+    </div>
+    <h1>Brands that need<br><span>New York</span><br>without being here</h1>
+    <p>We work with fashion labels, DTC brands, international companies, and corporate teams who need a polished NYC activation produced by someone they can trust completely.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">✨ Fashion & Beauty</span>
+      <span class="hero-pill">🛍️ DTC & E-Commerce</span>
+      <span class="hero-pill">🌐 International Brands</span>
+      <span class="hero-pill">💼 Corporate & B2B</span>
+    </div>
+  </div>
+</section>
+
+<div class="client-nav">
+  <div class="client-nav-inner">
+    <a href="#fashion"       class="cnav-link active">✨ Fashion & Beauty</a>
+    <a href="#dtc"           class="cnav-link">🛍️ DTC & E-Commerce</a>
+    <a href="#international" class="cnav-link">🌐 International Brands</a>
+    <a href="#corporate"     class="cnav-link">💼 Corporate & B2B</a>
+  </div>
+</div>
+
+<!-- FASHION & BEAUTY -->
+<section class="client-section" id="fashion">
+  <div class="cs-inner">
+    <div class="cs-header">
+      <div class="cs-badge fashion">✨</div>
+      <div>
+        <div class="cs-label fashion">Client type 01</div>
+        <h2>Fashion & Beauty Brands</h2>
+        <p>In fashion and beauty, how you show up is the product. We produce activations that match the aesthetic quality of your brand — the right neighborhood, the right space, the right energy. Whether it's an intimate press preview in Nolita or a multi-day launch in Soho, we set the stage so the event looks as good in person as it does on camera.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card-icon">🗺️</div>
+        <h4>Neighborhood expertise</h4>
+        <p>Nolita for editorial cool. Soho for foot traffic and visibility. Williamsburg for a younger crowd. We recommend the right location for your brand, not just what's available.</p>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-icon">📸</div>
+        <h4>Built for content</h4>
+        <p>Every element of the space is considered from a photography perspective. We design environments that look incredible on camera because that's where most of the reach really comes from.</p>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-icon">🎟️</div>
+        <h4>Press and influencer ready</h4>
+        <p>We coordinate arrivals, gifting setup, and check-in flow so press and creator guests have a seamless experience from the moment they walk in.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid-2">
+      <div class="accent-card coral">
+        <h4>What a great NYC fashion pop-up actually takes</h4>
+        <p>The right neighborhood for your specific customer. A space that photographs from every angle, not just the hero wall. Staff who speak your brand naturally. A content plan built in from day one, not bolted on at the end. And a clear shareable moment designed into the space. We think about all of this so you don't have to.</p>
+      </div>
+      <div class="cs-card">
+        <div class="pill-label">Common event types</div>
+        <div class="pill-row">
+          <span class="pill coral">Press preview</span>
+          <span class="pill coral">Product launch</span>
+          <span class="pill coral">Sample sale</span>
+          <span class="pill coral">Influencer event</span>
+          <span class="pill coral">Fashion week</span>
+          <span class="pill coral">Showroom pop-up</span>
+          <span class="pill coral">Seasonal campaign</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DTC & E-COMMERCE -->
+<section class="client-section" id="dtc">
+  <div class="cs-inner">
+    <div class="cs-header">
+      <div class="cs-badge dtc">🛍️</div>
+      <div>
+        <div class="cs-label dtc">Client type 02</div>
+        <h2>DTC & E-Commerce Brands</h2>
+        <p>You've built your brand online. A New York pop-up is the moment you meet your customers in real life, and for many DTC brands it's a turning point. Done right, it builds loyalty no email sequence can replicate. We translate your online identity into a physical space that feels authentic, not like a trade show booth.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card-icon">🔄</div>
+        <h4>Online to offline, done right</h4>
+        <p>Your digital identity, color palette, and aesthetic references translated into a real environment. Not a generic space with your logo on it. Your brand, in three dimensions.</p>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-icon">📦</div>
+        <h4>Product experience first</h4>
+        <p>DTC pop-ups work best when customers can touch, try, or experience the product in a way they can't online. We design the event flow around those discovery moments.</p>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-icon">📊</div>
+        <h4>Results that outlast the event</h4>
+        <p>Email capture, customer data, and conversion tracking built into the experience from the start. Your pop-up generates value long after the doors close.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid-2">
+      <div class="cs-card">
+        <div class="pill-label">Common event types</div>
+        <div class="pill-row">
+          <span class="pill teal">Product launch</span>
+          <span class="pill teal">Retail pop-up</span>
+          <span class="pill teal">Brand experience</span>
+          <span class="pill teal">Sample sale</span>
+          <span class="pill teal">Community event</span>
+          <span class="pill teal">Collab drop</span>
+          <span class="pill teal">Limited drop</span>
+        </div>
+      </div>
+      <div class="accent-card teal">
+        <h4>Why NYC is the right market for your first physical moment</h4>
+        <p>New York has the highest concentration of your target customer, media, and content creators of any US city. A well-executed NYC pop-up generates press and brand awareness that reaches far beyond the city. We've seen brands walk away from a single three-day activation with months of content and national press coverage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INTERNATIONAL -->
+<section class="client-section" id="international">
+  <div class="cs-inner">
+    <div class="cs-header">
+      <div class="cs-badge intl">🌐</div>
+      <div>
+        <div class="cs-label intl">Client type 03</div>
+        <h2>International Brands Entering the US</h2>
+        <p>Your first New York activation is a statement. It tells press, buyers, and customers that you're playing at the highest level. We become your full on-the-ground team for the project, handling everything locally so you can be fully present in the room without being in the room.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card-icon">🏙️</div>
+        <h4>Your NYC team, for the project</h4>
+        <p>We handle all vendor relationships, permit filings, contracts, and day-of management locally. One trusted contact who owns it end to end and keeps you updated at every stage.</p>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-icon">🔄</div>
+        <h4>Fully remote friendly</h4>
+        <p>All approvals happen asynchronously. Calls are scheduled around your time zone. We've worked with clients across Europe, Asia, and the Middle East. The process is built for it.</p>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-icon">💱</div>
+        <h4>International payments, no friction</h4>
+        <p>We invoice in USD and accept wire transfers via Wise with no surprise conversion fees. A full budget reconciliation statement is delivered after every event.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid-2">
+      <div class="accent-card purple">
+        <h4>Why New York is where the US story gets written</h4>
+        <p>National media, wholesale buyers, cultural tastemakers, and the global fashion and beauty press cycle all run through this city. A well-executed NYC activation generates reach that travels to every other US market. It's the most efficient place to make your American introduction.</p>
+      </div>
+      <div class="cs-card">
+        <div class="pill-label">Common event types</div>
+        <div class="pill-row">
+          <span class="pill purple">US market launch</span>
+          <span class="pill purple">Press introduction</span>
+          <span class="pill purple">Buyer preview</span>
+          <span class="pill purple">Brand awareness pop-up</span>
+          <span class="pill purple">Trade event</span>
+          <span class="pill purple">Cultural activation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CORPORATE -->
+<section class="client-section" id="corporate">
+  <div class="cs-inner">
+    <div class="cs-header">
+      <div class="cs-badge corp">💼</div>
+      <div>
+        <div class="cs-label corp">Client type 04</div>
+        <h2>Corporate & B2B Clients</h2>
+        <p>Corporate events in New York require a different kind of precision. Clients, investors, and partners are in the room, and every detail reflects on your company. We produce events where everything runs on time, everything looks right, and your team can focus entirely on the people they're there to impress.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid">
+      <div class="cs-card">
+        <div class="cs-card-icon">🏛️</div>
+        <h4>The right venue for your audience</h4>
+        <p>Private dining rooms, hotel event spaces, branded lofts, rooftop terraces. We source venues that fit your industry and the impression you want to make.</p>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-icon">🎯</div>
+        <h4>Every detail managed</h4>
+        <p>Guest arrival, A/V, catering timing, branded materials. We manage everything with the same rigor we bring to consumer events, because your guests notice it all.</p>
+      </div>
+      <div class="cs-card">
+        <div class="cs-card-icon">🤝</div>
+        <h4>Your team stays focused</h4>
+        <p>The worst corporate event is one where your team is chasing caterers instead of clients. We handle all of it so your people can focus on the relationships that matter.</p>
+      </div>
+    </div>
+
+    <div class="cs-grid-2">
+      <div class="cs-card">
+        <div class="pill-label">Common event types</div>
+        <div class="pill-row">
+          <span class="pill dark">Client dinner</span>
+          <span class="pill dark">Product showcase</span>
+          <span class="pill dark">Conference activation</span>
+          <span class="pill dark">Team event</span>
+          <span class="pill dark">Investor event</span>
+          <span class="pill dark">Annual client evening</span>
+          <span class="pill dark">Press launch</span>
+        </div>
+      </div>
+      <div class="accent-card dark">
+        <h4>What we handle so you don't have to</h4>
+        <p>Guest list and RSVP management. Run-of-show scripted to the minute. A/V tested before guests arrive. Catering timed to the program. Branded materials produced and proofed. An on-site manager present for the full duration. You show up and lead the room. We handle everything else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOOD FIT -->
+<section class="good-fit">
+  <div class="good-fit-inner">
+    <div class="section-tag">Quick check</div>
+    <h2 class="section-title">You're probably a<br>good fit if...</h2>
+    <div class="gf-grid">
+      <div class="gf-card">
+        <div class="gf-icon">🏙️</div>
+        <h4>You need New York but you're not based here</h4>
+        <p>Our entire process is built for remote clients. You don't need to fly in or manage vendors. That's what we're here for.</p>
+      </div>
+      <div class="gf-card">
+        <div class="gf-icon">🎨</div>
+        <h4>Brand consistency matters to you</h4>
+        <p>You're not looking for a generic event space with your logo on it. The aesthetic and guest experience need to accurately reflect your brand.</p>
+      </div>
+      <div class="gf-card">
+        <div class="gf-icon">🔍</div>
+        <h4>You want full transparency</h4>
+        <p>You want to know where your budget is at every stage. Clear contracts, honest timelines, and no surprises after the event.</p>
+      </div>
+      <div class="gf-card">
+        <div class="gf-icon">📈</div>
+        <h4>You're measuring real results</h4>
+        <p>Press, content, sales, or customer data. You're planning this against actual goals, not just looking for something to post about.</p>
+      </div>
+      <div class="gf-card">
+        <div class="gf-icon">📅</div>
+        <h4>You can give us a few weeks lead time</h4>
+        <p>The best events are well planned. Tighter timelines are sometimes possible and we'll always be honest about what's realistic given your window.</p>
+      </div>
+      <div class="gf-card">
+        <div class="gf-icon">💬</div>
+        <h4>You want a partner, not just a vendor</h4>
+        <p>You want someone who understands your brand, challenges your thinking, and takes real ownership of the outcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="section-tag">What clients say</div>
+    <h2 class="section-title">Words from brands<br>we've worked with</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">We were based in Paris the entire time. They handled every detail and sent us updates throughout the day. The event looked exactly like what we imagined, and the press coverage was beyond what we expected for a first US activation.</div>
+        <div class="testi-name">Creative Director</div>
+        <div class="testi-company">European fashion label, Paris</div>
+        <span class="testi-tag intl">International brand</span>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">This was our first physical moment after years online. They understood immediately that it needed to feel like our Instagram feed come to life. Our customers kept saying the space felt exactly like us.</div>
+        <div class="testi-name">Founder</div>
+        <div class="testi-company">DTC skincare brand, Austin TX</div>
+        <span class="testi-tag dtc">DTC brand</span>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">The client dinner was flawless. Our team didn't have to think about a single logistical detail the whole evening. We just focused on the conversations that mattered.</div>
+        <div class="testi-name">VP of Marketing</div>
+        <div class="testi-company">B2B software company, Chicago</div>
+        <span class="testi-tag corp">Corporate</span>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">The press preview felt intimate and editorial, exactly what a Nolita beauty launch should feel like. The moodboard was right on the first pass. I've worked with event companies that take three rounds to get the vibe.</div>
+        <div class="testi-name">Brand Director</div>
+        <div class="testi-company">Indie beauty brand, Los Angeles</div>
+        <span class="testi-tag fashion">Fashion & beauty</span>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">As a Korean brand entering the US, we had no local relationships and no time to build them. They became our entire New York team in four weeks and the activation landed coverage in three publications we'd been chasing for two years.</div>
+        <div class="testi-name">US Market Director</div>
+        <div class="testi-company">K-beauty brand, Seoul</div>
+        <span class="testi-tag intl">International brand</span>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">Four days in Williamsburg for our summer drop. The foot traffic was incredible, the content gave us months of material, and the post-event report actually helped us make decisions about our permanent retail strategy.</div>
+        <div class="testi-name">Co-founder</div>
+        <div class="testi-company">Sustainable apparel brand, Portland OR</div>
+        <span class="testi-tag dtc">DTC brand</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <h2>Sound like <span>your brand?</span></h2>
+  <p>Tell us about your vision. Proposal back to you within 48 hours.</p>
+  <div class="cta-buttons">
+    <a href="index.html#contact" class="btn-yellow">Start the conversation ✦</a>
+    <a href="services.html" class="btn-ghost">See all services →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><span>P</span>op Up Planners</div>
+      <p>NYC-based pop-up production for brands that can't be here but need to be.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="services.html#brand-activations">Brand Activations</a></li>
+        <li><a href="services.html#remote-production">Remote Production</a></li>
+        <li><a href="services.html#content-press">Content &amp; Press</a></li>
+        <li><a href="services.html#corporate">Corporate Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="who-we-serve.html">Who We Serve</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Pop Up Planners LLC. All rights reserved. New York City.</span>
+    <span>Made in NYC ✦</span>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .cs-card, .gf-card, .testi-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      cursor.style.background = 'var(--yellow)';
+      ring.style.opacity = '0.3';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      cursor.style.background = 'var(--purple-bright)';
+      ring.style.opacity = '0.6';
+    });
+  });
+  const sections = document.querySelectorAll('.client-section[id]');
+  const navLinks = document.querySelectorAll('.cnav-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 160) current = s.id; });
+    navLinks.forEach(l => {
+      l.classList.remove('active');
+      if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
