@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pop Up Planners</title>
+<title>Pop Up Planners — NYC Brand Activations & Pop-Up Production</title>
+<meta name="description" content="Pop Up Planners produces brand activations and pop-up events in New York City for fashion, beauty, DTC, corporate, and international brands. Full-service event production — concept to teardown. Remote-friendly.">
+<meta property="og:title" content="Pop Up Planners — NYC Brand Activations">
+<meta property="og:description" content="NYC-based pop-up production for brands that can't be here — but need to be.">
+<meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -21,6 +25,8 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html { scroll-behavior: smooth; }
+
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--cream);
@@ -29,7 +35,6 @@
     cursor: none;
   }
 
-  /* Custom cursor */
   .cursor {
     width: 12px; height: 12px;
     background: var(--purple-bright);
@@ -58,53 +63,40 @@
     z-index: 100;
     padding: 20px 48px;
     display: flex; align-items: center; justify-content: space-between;
-    background: rgba(255,248,240,0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(255,248,240,0.88);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(107,33,200,0.08);
   }
-
   .nav-logo {
     font-family: 'Unbounded', sans-serif;
-    font-size: 15px;
-    font-weight: 900;
+    font-size: 15px; font-weight: 900;
     letter-spacing: -0.02em;
     color: var(--purple-deep);
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
   }
   .logo-p {
     width: 32px; height: 32px;
     background: var(--purple-bright);
     border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    color: white;
-    font-size: 17px;
-    font-weight: 900;
+    color: white; font-size: 17px; font-weight: 900;
     transform: rotate(-4deg);
     transition: transform 0.2s;
   }
   .logo-p:hover { transform: rotate(4deg) scale(1.1); }
-
-  .nav-links {
-    display: flex; gap: 36px;
-    list-style: none;
-  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a {
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--purple-deep);
-    opacity: 0.7;
-    transition: opacity 0.2s;
-    letter-spacing: 0.02em;
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    color: var(--purple-deep); opacity: 0.7;
+    transition: opacity 0.2s; letter-spacing: 0.02em;
   }
   .nav-links a:hover { opacity: 1; }
-
   .nav-cta {
-    background: var(--purple-deep);
+    background: var(--purple-deep) !important;
     color: var(--yellow) !important;
-    padding: 10px 22px;
+    padding: 10px 22px !important;
     border-radius: 100px;
-    font-weight: 500 !important;
     opacity: 1 !important;
     font-size: 13px !important;
     transition: background 0.2s, transform 0.15s !important;
@@ -122,13 +114,9 @@
     position: relative;
     overflow: hidden;
   }
-
   .hero-bg-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.18;
-    pointer-events: none;
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); opacity: 0.18; pointer-events: none;
   }
   .blob1 { width: 500px; height: 500px; background: var(--purple-bright); top: -100px; right: -100px; }
   .blob2 { width: 300px; height: 300px; background: var(--coral); bottom: 50px; left: 200px; }
@@ -136,80 +124,53 @@
 
   .hero-tag {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--yellow);
-    color: var(--purple-deep);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 7px 14px;
-    border-radius: 100px;
+    background: var(--yellow); color: var(--purple-deep);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 7px 14px; border-radius: 100px;
     margin-bottom: 28px;
     animation: fadeUp 0.7s ease both;
   }
   .tag-dot { width: 6px; height: 6px; background: var(--purple-mid); border-radius: 50%; }
-
   .hero h1 {
     font-family: 'Unbounded', sans-serif;
     font-size: clamp(36px, 5vw, 64px);
-    font-weight: 900;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    color: var(--purple-deep);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -0.03em; color: var(--purple-deep);
     margin-bottom: 24px;
     animation: fadeUp 0.7s 0.1s ease both;
   }
-
   .hero h1 .accent { color: var(--purple-bright); }
-  .hero h1 .underline-squiggle {
-    position: relative;
-    display: inline-block;
-  }
+  .hero h1 .underline-squiggle { position: relative; display: inline-block; }
   .hero h1 .underline-squiggle::after {
     content: '';
-    position: absolute;
-    bottom: -6px; left: 0; right: 0;
-    height: 6px;
+    position: absolute; bottom: -6px; left: 0; right: 0; height: 6px;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0 5 Q10 0 20 5 Q30 10 40 5 Q50 0 60 5 Q70 10 80 5 Q90 0 100 5' fill='none' stroke='%23FFE135' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x center / 80px 6px;
   }
-
   .hero-sub {
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--purple-deep);
-    opacity: 0.65;
-    max-width: 440px;
-    margin-bottom: 40px;
-    font-weight: 300;
+    font-size: 16px; line-height: 1.7;
+    color: var(--purple-deep); opacity: 0.65;
+    max-width: 440px; margin-bottom: 40px; font-weight: 300;
     animation: fadeUp 0.7s 0.2s ease both;
   }
-
   .hero-buttons {
     display: flex; gap: 16px; flex-wrap: wrap;
     animation: fadeUp 0.7s 0.3s ease both;
   }
-
   .btn-primary {
-    background: var(--purple-bright);
-    color: white;
-    padding: 16px 32px;
-    border-radius: 100px;
-    font-size: 15px;
-    font-weight: 500;
+    background: var(--purple-bright); color: white;
+    padding: 16px 32px; border-radius: 100px;
+    font-size: 15px; font-weight: 500;
     text-decoration: none;
     display: inline-flex; align-items: center; gap: 8px;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 8px 30px rgba(155,77,255,0.35);
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(155,77,255,0.45); }
-
   .btn-secondary {
-    background: transparent;
-    color: var(--purple-deep);
-    padding: 16px 32px;
-    border-radius: 100px;
-    font-size: 15px;
-    font-weight: 500;
+    background: transparent; color: var(--purple-deep);
+    padding: 16px 32px; border-radius: 100px;
+    font-size: 15px; font-weight: 500;
     text-decoration: none;
     border: 1.5px solid rgba(45,10,92,0.2);
     display: inline-flex; align-items: center; gap: 8px;
@@ -217,28 +178,18 @@
   }
   .btn-secondary:hover { border-color: var(--purple-bright); background: rgba(155,77,255,0.05); }
 
-  /* Hero right: floating cards */
-  .hero-visual {
-    position: relative;
-    height: 500px;
-    animation: fadeUp 0.7s 0.15s ease both;
-  }
-
+  /* Hero visual cards */
+  .hero-visual { position: relative; height: 500px; animation: fadeUp 0.7s 0.15s ease both; }
   .float-card {
-    position: absolute;
-    background: white;
-    border-radius: 20px;
-    padding: 20px 24px;
+    position: absolute; background: white;
+    border-radius: 20px; padding: 20px 24px;
     box-shadow: 0 20px 60px rgba(45,10,92,0.12);
     transition: transform 0.4s ease;
   }
   .float-card:hover { transform: translateY(-6px) rotate(1deg); }
-
   .card-main {
-    width: 280px;
-    top: 40px; right: 20px;
-    background: var(--purple-deep);
-    color: white;
+    width: 280px; top: 40px; right: 20px;
+    background: var(--purple-deep); color: white;
     animation: float 6s ease-in-out infinite;
   }
   .card-main .card-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.5; margin-bottom: 12px; }
@@ -249,203 +200,96 @@
     background: linear-gradient(135deg, var(--purple-bright), var(--coral));
     border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
-    margin-bottom: 16px;
+    font-size: 36px; margin-bottom: 16px;
   }
   .card-main .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-  .card-main .card-tag {
-    background: rgba(255,255,255,0.12);
-    font-size: 10px; padding: 4px 10px; border-radius: 100px;
-    font-weight: 500;
-  }
-
+  .card-main .card-tag { background: rgba(255,255,255,0.12); font-size: 10px; padding: 4px 10px; border-radius: 100px; font-weight: 500; }
   .card-stat {
-    width: 160px;
-    top: 200px; left: 0px;
+    width: 160px; top: 200px; left: 0px;
     background: var(--yellow);
     animation: float 5s 1s ease-in-out infinite;
   }
   .card-stat .stat-num { font-family: 'Unbounded', sans-serif; font-size: 32px; font-weight: 900; color: var(--purple-deep); }
   .card-stat .stat-label { font-size: 12px; color: var(--purple-deep); opacity: 0.7; font-weight: 500; }
-
   .card-review {
-    width: 220px;
-    bottom: 60px; right: 40px;
+    width: 220px; bottom: 60px; right: 40px;
     animation: float 7s 2s ease-in-out infinite;
   }
   .card-review .stars { color: #FFB800; font-size: 13px; margin-bottom: 8px; }
   .card-review .review-text { font-size: 12px; line-height: 1.6; color: var(--dark); opacity: 0.75; margin-bottom: 10px; font-style: italic; }
   .card-review .reviewer { font-size: 11px; font-weight: 600; color: var(--purple-mid); }
-
   .card-cities {
-    width: 170px;
-    top: 20px; left: 30px;
+    width: 170px; top: 20px; left: 30px;
     background: var(--teal);
     animation: float 5.5s 0.5s ease-in-out infinite;
   }
   .card-cities .city-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple-deep); opacity: 0.6; margin-bottom: 10px; }
-  .city-pill {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 500;
-    color: var(--purple-deep);
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(45,10,92,0.1);
-  }
+  .city-pill { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--purple-deep); padding: 5px 0; border-bottom: 1px solid rgba(45,10,92,0.1); }
   .city-pill:last-child { border-bottom: none; }
   .city-dot { width: 7px; height: 7px; background: var(--purple-bright); border-radius: 50%; }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
   /* TICKER */
   .ticker {
-    background: var(--purple-deep);
-    padding: 14px 0;
-    overflow: hidden;
-    white-space: nowrap;
+    background: var(--purple-deep); padding: 14px 0;
+    overflow: hidden; white-space: nowrap;
     border-top: 2px solid var(--purple-bright);
     border-bottom: 2px solid var(--purple-bright);
   }
-  .ticker-inner {
-    display: inline-flex; gap: 0;
-    animation: ticker 20s linear infinite;
-  }
+  .ticker-inner { display: inline-flex; animation: ticker 22s linear infinite; }
   .ticker-item {
     display: inline-flex; align-items: center; gap: 16px;
     font-family: 'Unbounded', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    padding: 0 40px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--yellow); padding: 0 40px;
   }
   .ticker-dot { color: var(--purple-bright); font-size: 18px; line-height: 1; }
-  @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTION SHARED */
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 60px; flex-wrap: wrap; gap: 24px; }
+  .section-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple-bright); font-weight: 700; margin-bottom: 12px; }
+  .section-title { font-family: 'Unbounded', sans-serif; font-size: clamp(26px, 3.5vw, 42px); font-weight: 900; letter-spacing: -0.03em; color: var(--purple-deep); line-height: 1.1; }
+  .section-sub { font-size: 15px; line-height: 1.7; color: var(--purple-deep); opacity: 0.55; max-width: 280px; text-align: right; font-weight: 300; }
 
   /* SERVICES */
-  .services {
-    padding: 100px 48px;
-    background: white;
-  }
-  .section-header {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 60px;
-    flex-wrap: wrap; gap: 24px;
-  }
-  .section-tag {
-    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--purple-bright); font-weight: 700;
-    margin-bottom: 12px;
-  }
-  .section-title {
-    font-family: 'Unbounded', sans-serif;
-    font-size: clamp(26px, 3.5vw, 42px);
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    color: var(--purple-deep);
-    line-height: 1.1;
-  }
-  .section-sub {
-    font-size: 15px; line-height: 1.7;
-    color: var(--purple-deep); opacity: 0.55;
-    max-width: 260px; text-align: right;
-    font-weight: 300;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
+  #services { padding: 100px 48px; background: white; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .service-card {
-    border-radius: 20px;
-    padding: 36px 32px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    cursor: default;
+    border-radius: 20px; padding: 36px 32px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s ease; cursor: default;
   }
   .service-card:hover { transform: translateY(-4px); }
-
   .service-card.purple { background: var(--purple-deep); color: white; }
   .service-card.yellow { background: var(--yellow); color: var(--purple-deep); }
   .service-card.coral { background: var(--coral); color: white; }
   .service-card.teal { background: var(--teal); color: var(--purple-deep); }
   .service-card.light { background: var(--cream); color: var(--purple-deep); border: 1.5px solid rgba(107,33,200,0.1); }
   .service-card.dark { background: var(--dark); color: white; }
-
-  .service-icon {
-    font-size: 32px; margin-bottom: 20px;
-    display: block;
-  }
-  .service-card h3 {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 17px; font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 10px;
-    line-height: 1.2;
-  }
-  .service-card p {
-    font-size: 13px; line-height: 1.65;
-    opacity: 0.7; font-weight: 300;
-  }
-  .service-number {
-    position: absolute; bottom: 24px; right: 28px;
-    font-family: 'Unbounded', sans-serif;
-    font-size: 48px; font-weight: 900;
-    opacity: 0.07; line-height: 1;
-  }
-
-  /* Large card spans 2 columns */
+  .service-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+  .service-card h3 { font-family: 'Unbounded', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.2; }
+  .service-card p { font-size: 13px; line-height: 1.65; opacity: 0.75; font-weight: 300; }
+  .service-number { position: absolute; bottom: 24px; right: 28px; font-family: 'Unbounded', sans-serif; font-size: 48px; font-weight: 900; opacity: 0.07; line-height: 1; }
   .service-card.wide { grid-column: span 2; }
 
   /* HOW IT WORKS */
-  .process {
-    padding: 100px 48px;
-    background: var(--cream);
-  }
-
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: 60px;
-    position: relative;
-  }
+  #process { padding: 100px 48px; background: var(--cream); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 60px; position: relative; }
   .steps::before {
-    content: '';
-    position: absolute;
-    top: 28px; left: 10%; right: 10%;
-    height: 1px;
+    content: ''; position: absolute;
+    top: 28px; left: 10%; right: 10%; height: 1px;
     background: linear-gradient(90deg, transparent, var(--purple-soft), var(--purple-soft), transparent);
     z-index: 0;
   }
-
-  .step {
-    text-align: center;
-    padding: 0 20px;
-    position: relative;
-    z-index: 1;
-  }
+  .step { text-align: center; padding: 0 20px; position: relative; z-index: 1; }
   .step-num {
-    width: 56px; height: 56px;
-    background: var(--purple-bright);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Unbounded', sans-serif;
-    font-size: 18px; font-weight: 900;
-    color: white;
+    width: 56px; height: 56px; background: var(--purple-bright);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: 'Unbounded', sans-serif; font-size: 18px; font-weight: 900; color: white;
     margin: 0 auto 24px;
     box-shadow: 0 8px 24px rgba(155,77,255,0.35);
     transition: transform 0.2s;
@@ -454,107 +298,57 @@
   .step:nth-child(3) .step-num { background: var(--teal); box-shadow: 0 8px 24px rgba(0,212,170,0.35); color: var(--purple-deep); }
   .step:nth-child(4) .step-num { background: var(--yellow); box-shadow: 0 8px 24px rgba(255,225,53,0.4); color: var(--purple-deep); }
   .step:hover .step-num { transform: scale(1.1); }
-
-  .step h4 {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 14px; font-weight: 700;
-    color: var(--purple-deep);
-    margin-bottom: 10px;
-    letter-spacing: -0.02em;
-  }
-  .step p {
-    font-size: 13px; line-height: 1.65;
-    color: var(--purple-deep); opacity: 0.6;
-    font-weight: 300;
-  }
+  .step h4 { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: var(--purple-deep); margin-bottom: 10px; letter-spacing: -0.02em; }
+  .step p { font-size: 13px; line-height: 1.65; color: var(--purple-deep); opacity: 0.6; font-weight: 300; }
 
   /* WHO WE SERVE */
-  .clients {
-    padding: 100px 48px;
-    background: var(--purple-deep);
-    color: white;
-    overflow: hidden;
-    position: relative;
-  }
-  .clients .section-tag { color: var(--yellow); }
-  .clients .section-title { color: white; }
-
-  .clients-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 60px;
-  }
-
+  #clients { padding: 100px 48px; background: var(--purple-deep); color: white; overflow: hidden; position: relative; }
+  #clients .section-tag { color: var(--yellow); }
+  #clients .section-title { color: white; }
+  .clients-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 60px; }
   .client-card {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 32px 28px;
+    border-radius: 20px; padding: 32px 28px;
     transition: background 0.3s, transform 0.3s;
   }
   .client-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
   .client-card .client-icon { font-size: 28px; margin-bottom: 16px; }
   .client-card h4 { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
-  .client-card p { font-size: 13px; opacity: 0.55; line-height: 1.65; font-weight: 300; }
+  .client-card p { font-size: 13px; opacity: 0.6; line-height: 1.7; font-weight: 300; }
   .client-card .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; }
-  .client-tag {
-    font-size: 10px; padding: 4px 10px;
-    border-radius: 100px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-  }
+  .client-tag { font-size: 10px; padding: 4px 10px; border-radius: 100px; font-weight: 600; letter-spacing: 0.05em; }
   .client-tag.purple { background: rgba(155,77,255,0.25); color: var(--purple-soft); }
   .client-tag.yellow { background: rgba(255,225,53,0.2); color: var(--yellow); }
   .client-tag.teal { background: rgba(0,212,170,0.2); color: var(--teal); }
   .client-tag.coral { background: rgba(255,94,91,0.2); color: #FF8F8D; }
 
   /* PRICING */
-  .pricing {
-    padding: 100px 48px;
-    background: white;
-  }
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 60px;
-  }
+  #pricing { padding: 100px 48px; background: white; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 60px; }
   .price-card {
-    border-radius: 24px;
-    padding: 40px 32px;
+    border-radius: 24px; padding: 40px 32px;
     border: 1.5px solid rgba(107,33,200,0.1);
-    position: relative;
-    transition: transform 0.3s;
+    position: relative; transition: transform 0.3s;
   }
   .price-card:hover { transform: translateY(-4px); }
   .price-card.featured {
-    background: var(--purple-deep);
-    color: white;
+    background: var(--purple-deep); color: white;
     border-color: transparent;
     box-shadow: 0 24px 60px rgba(45,10,92,0.25);
     transform: scale(1.03);
   }
   .price-card.featured:hover { transform: scale(1.03) translateY(-4px); }
-
   .featured-badge {
     position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-    background: var(--yellow);
-    color: var(--purple-deep);
+    background: var(--yellow); color: var(--purple-deep);
     font-size: 10px; font-weight: 700;
     letter-spacing: 0.1em; text-transform: uppercase;
     padding: 5px 16px; border-radius: 100px;
   }
-
   .price-tier { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--purple-bright); margin-bottom: 12px; }
   .price-card.featured .price-tier { color: var(--purple-soft); }
-  .price-amount {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 40px; font-weight: 900;
-    color: var(--purple-deep);
-    letter-spacing: -0.03em;
-    margin-bottom: 4px;
-  }
+  .price-amount { font-family: 'Unbounded', sans-serif; font-size: 40px; font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; margin-bottom: 4px; }
   .price-card.featured .price-amount { color: white; }
   .price-note { font-size: 12px; opacity: 0.5; margin-bottom: 28px; font-weight: 300; }
   .price-divider { height: 1px; background: rgba(107,33,200,0.1); margin-bottom: 24px; }
@@ -564,98 +358,160 @@
   .price-features li::before { content: ''; width: 16px; height: 16px; min-width: 16px; background: var(--teal); border-radius: 50%; display: block; margin-top: 1px; }
   .price-card.featured .price-features li { opacity: 0.85; }
   .price-card.featured .price-features li::before { background: var(--yellow); }
-
-  .btn-price {
-    width: 100%;
-    padding: 14px;
-    border-radius: 100px;
-    font-size: 14px; font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
-    letter-spacing: 0.01em;
-  }
-  .btn-price-outline {
-    background: transparent;
-    border: 1.5px solid rgba(107,33,200,0.2);
-    color: var(--purple-deep);
-  }
+  .btn-price { width: 100%; padding: 14px; border-radius: 100px; font-size: 14px; font-weight: 500; text-align: center; cursor: pointer; border: none; transition: all 0.2s; font-family: 'DM Sans', sans-serif; letter-spacing: 0.01em; }
+  .btn-price-outline { background: transparent; border: 1.5px solid rgba(107,33,200,0.2); color: var(--purple-deep); }
   .btn-price-outline:hover { border-color: var(--purple-bright); background: rgba(155,77,255,0.05); }
-  .btn-price-solid {
-    background: var(--yellow);
-    color: var(--purple-deep);
-    font-weight: 600;
-  }
+  .btn-price-solid { background: var(--yellow); color: var(--purple-deep); font-weight: 600; }
   .btn-price-solid:hover { background: #f5d600; transform: translateY(-1px); }
 
-  /* CTA */
-  .cta {
-    padding: 120px 48px;
+  .pricing-note {
+    margin-top: 40px;
     background: var(--cream);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    border-radius: 16px;
+    padding: 28px 32px;
+    border: 1px solid rgba(107,33,200,0.08);
+    display: flex; align-items: flex-start; gap: 16px;
   }
-  .cta::before {
+  .pricing-note-icon { font-size: 22px; margin-top: 2px; }
+  .pricing-note p { font-size: 13px; line-height: 1.7; color: var(--purple-deep); opacity: 0.7; font-weight: 300; }
+  .pricing-note strong { font-weight: 500; opacity: 1; color: var(--purple-deep); }
+
+  /* CONTACT */
+  #contact {
+    padding: 100px 48px;
+    background: var(--cream);
+    position: relative; overflow: hidden;
+  }
+  #contact::before {
     content: 'P';
     position: absolute;
     font-family: 'Unbounded', sans-serif;
     font-size: 500px; font-weight: 900;
-    color: var(--purple-bright);
-    opacity: 0.03;
+    color: var(--purple-bright); opacity: 0.03;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    pointer-events: none;
-    line-height: 1;
+    pointer-events: none; line-height: 1;
   }
-  .cta h2 {
-    font-family: 'Unbounded', sans-serif;
-    font-size: clamp(28px, 4vw, 52px);
-    font-weight: 900;
-    color: var(--purple-deep);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    max-width: 640px;
-    margin: 0 auto 24px;
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 60px;
     position: relative;
   }
-  .cta p { font-size: 16px; opacity: 0.55; max-width: 400px; margin: 0 auto 40px; font-weight: 300; line-height: 1.7; position: relative; }
-  .cta .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .contact-left h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--purple-deep);
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .contact-left p { font-size: 15px; line-height: 1.75; color: var(--purple-deep); opacity: 0.6; font-weight: 300; margin-bottom: 36px; }
+  .contact-detail { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .contact-detail-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--purple-bright);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .contact-detail-text { font-size: 13px; color: var(--purple-deep); font-weight: 500; }
+  .contact-detail-text span { display: block; font-size: 11px; opacity: 0.5; font-weight: 300; margin-bottom: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  .contact-form {
+    background: white;
+    border-radius: 24px;
+    padding: 40px 36px;
+    box-shadow: 0 20px 60px rgba(45,10,92,0.08);
+    position: relative;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple-deep); opacity: 0.5; margin-bottom: 8px; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: 13px 16px;
+    border: 1.5px solid rgba(107,33,200,0.12);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--purple-deep);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--purple-bright);
+    box-shadow: 0 0 0 4px rgba(155,77,255,0.08);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+  .form-group select { cursor: pointer; }
+  .form-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--purple-bright);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(155,77,255,0.35);
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(155,77,255,0.45); }
+  .form-note { font-size: 11px; opacity: 0.45; text-align: center; margin-top: 12px; font-weight: 300; }
+
+  /* CTA strip */
+  .cta-strip {
+    padding: 80px 48px;
+    background: var(--purple-deep);
+    text-align: center;
+  }
+  .cta-strip h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(22px, 3vw, 38px); font-weight: 900;
+    color: white; letter-spacing: -0.03em; line-height: 1.15;
+    max-width: 560px; margin: 0 auto 16px;
+  }
+  .cta-strip h2 span { color: var(--yellow); }
+  .cta-strip p { font-size: 15px; color: white; opacity: 0.55; margin-bottom: 36px; font-weight: 300; }
+  .cta-strip .btn-yellow {
+    background: var(--yellow); color: var(--purple-deep);
+    padding: 16px 36px; border-radius: 100px;
+    font-size: 15px; font-weight: 700;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(255,225,53,0.3);
+  }
+  .cta-strip .btn-yellow:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(255,225,53,0.45); }
 
   /* FOOTER */
-  footer {
-    background: var(--dark);
-    color: white;
-    padding: 60px 48px 40px;
-  }
-  .footer-top {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    margin-bottom: 48px;
-    flex-wrap: wrap; gap: 40px;
-  }
-  .footer-brand .footer-logo {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 20px; font-weight: 900;
-    color: white;
-    margin-bottom: 12px;
-  }
+  footer { background: var(--dark); color: white; padding: 60px 48px 40px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; flex-wrap: wrap; gap: 40px; }
+  .footer-brand .footer-logo { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 900; color: white; margin-bottom: 12px; }
   .footer-brand .footer-logo span { color: var(--purple-bright); }
   .footer-brand p { font-size: 13px; opacity: 0.4; max-width: 220px; line-height: 1.6; font-weight: 300; }
-
   .footer-links h5 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; margin-bottom: 16px; font-weight: 600; }
   .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
   .footer-links ul a { color: white; text-decoration: none; font-size: 13px; opacity: 0.6; transition: opacity 0.2s; }
   .footer-links ul a:hover { opacity: 1; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; opacity: 0.35; flex-wrap: wrap; gap: 12px; }
 
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding-top: 28px;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 12px; opacity: 0.35;
-    flex-wrap: wrap; gap: 12px;
+  /* SUCCESS STATE */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
   }
+  .form-success .success-icon { font-size: 48px; margin-bottom: 16px; }
+  .form-success h4 { font-family: 'Unbounded', sans-serif; font-size: 18px; font-weight: 700; color: var(--purple-deep); margin-bottom: 10px; }
+  .form-success p { font-size: 14px; color: var(--purple-deep); opacity: 0.6; line-height: 1.7; font-weight: 300; }
 </style>
 </head>
 <body>
@@ -665,16 +521,16 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
+  <a href="index.html" class="nav-logo">
     <div class="logo-p">P</div>
     Pop Up Planners
-  </div>
+  </a>
   <ul class="nav-links">
     <li><a href="services.html">Services</a></li>
     <li><a href="how-it-works.html">How It Works</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="who-we-serve.html">Who We Serve</a></li>
     <li><a href="pricing.html">Pricing</a></li>
-    <li><a href="#" class="nav-cta">Get a Quote →</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote →</a></li>
   </ul>
 </nav>
 
@@ -685,46 +541,46 @@
   <div class="hero-bg-blob blob3"></div>
 
   <div class="hero-content">
-    <div class="hero-tag"><span class="tag-dot"></span> NYC-based Pop-Up Producers</div>
+    <div class="hero-tag"><span class="tag-dot"></span> NYC-Based Pop-Up Producers</div>
     <h1>
       Your brand.<br>
       <span class="accent">Our city.</span><br>
       <span class="underline-squiggle">Unforgettable.</span>
     </h1>
-    <p class="hero-sub">We produce brand activations and pop-up experiences in NYC and major US cities — so you don't have to be here to make an impact.</p>
+    <p class="hero-sub">We produce brand activations, pop-ups, and experiential events in New York City — so fashion, beauty, DTC, and corporate brands around the world can show up in the room without being in the room.</p>
     <div class="hero-buttons">
-      <a href="#" class="btn-primary">Start your activation ✦</a>
-      <a href="#" class="btn-secondary">View our work →</a>
+      <a href="#contact" class="btn-primary">Start your activation ✦</a>
+      <a href="#services" class="btn-secondary">See what we do →</a>
     </div>
   </div>
 
   <div class="hero-visual">
     <div class="float-card card-cities">
-      <div class="city-label">We operate in</div>
+      <div class="city-label">Home base</div>
       <div class="city-pill"><span class="city-dot"></span>New York City</div>
-      <div class="city-pill"><span class="city-dot"></span>Los Angeles</div>
-      <div class="city-pill"><span class="city-dot"></span>Chicago</div>
-      <div class="city-pill"><span class="city-dot"></span>Miami</div>
+      <div class="city-pill"><span class="city-dot"></span>Soho · Nolita</div>
+      <div class="city-pill"><span class="city-dot"></span>Williamsburg</div>
+      <div class="city-pill"><span class="city-dot"></span>Midtown · FiDi</div>
     </div>
     <div class="float-card card-main">
-      <div class="card-label">Active project</div>
-      <div class="card-img">🛍️</div>
-      <div class="card-title">Spring Launch · Soho</div>
-      <div class="card-loc">📍 Spring St, New York</div>
+      <div class="card-label">Sample project</div>
+      <div class="card-img">✨</div>
+      <div class="card-title">Beauty Brand Launch · Nolita</div>
+      <div class="card-loc">📍 Elizabeth St, New York</div>
       <div class="card-tags">
         <span class="card-tag">Brand Activation</span>
-        <span class="card-tag">2-day pop-up</span>
-        <span class="card-tag">$42k budget</span>
+        <span class="card-tag">3-day pop-up</span>
+        <span class="card-tag">Press + Influencer</span>
       </div>
     </div>
     <div class="float-card card-stat">
-      <div class="stat-num">50+</div>
-      <div class="stat-label">Pop-ups produced in NYC</div>
+      <div class="stat-num">48h</div>
+      <div class="stat-label">Proposal turnaround</div>
     </div>
     <div class="float-card card-review">
       <div class="stars">★★★★★</div>
-      <div class="review-text">"They handled everything. We were in Berlin the whole time and the event looked incredible."</div>
-      <div class="reviewer">— Marta K., Berlin-based DTC brand</div>
+      <div class="review-text">"They handled everything. We were in Paris and the event looked incredible."</div>
+      <div class="reviewer">— International beauty brand client</div>
     </div>
   </div>
 </section>
@@ -734,225 +590,337 @@
   <div class="ticker-inner" id="ticker">
     <span class="ticker-item">Brand Activations <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">Pop-Up Production <span class="ticker-dot">✦</span></span>
-    <span class="ticker-item">NYC & Major US Cities <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">New York City <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Fashion &amp; Beauty <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">DTC Brands <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">International Clients <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Concept to Teardown <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">Remote-Friendly <span class="ticker-dot">✦</span></span>
-    <span class="ticker-item">Corporate Events <span class="ticker-dot">✦</span></span>
-    <span class="ticker-item">International Brands <span class="ticker-dot">✦</span></span>
-    <span class="ticker-item">Concept to Execution <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">Brand Activations <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">Pop-Up Production <span class="ticker-dot">✦</span></span>
-    <span class="ticker-item">NYC & Major US Cities <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">New York City <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Fashion &amp; Beauty <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">DTC Brands <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">International Clients <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Concept to Teardown <span class="ticker-dot">✦</span></span>
     <span class="ticker-item">Remote-Friendly <span class="ticker-dot">✦</span></span>
-    <span class="ticker-item">Corporate Events <span class="ticker-dot">✦</span></span>
-    <span class="ticker-item">International Brands <span class="ticker-dot">✦</span></span>
-    <span class="ticker-item">Concept to Execution <span class="ticker-dot">✦</span></span>
   </div>
 </div>
 
 <!-- SERVICES -->
-<section class="services">
+<section id="services">
   <div class="section-header">
     <div>
       <div class="section-tag">What we do</div>
-      <h2 class="section-title">Full-service<br>pop-up production</h2>
+      <h2 class="section-title">Full-service pop-up<br>production in NYC</h2>
     </div>
-    <p class="section-sub">From concept to teardown — we handle every detail so your brand shows up perfectly.</p>
+    <p class="section-sub">From the first mood board to the final teardown — we handle every detail so your brand shows up perfectly.</p>
   </div>
 
   <div class="services-grid">
     <div class="service-card purple wide">
       <span class="service-icon">🏙️</span>
-      <h3>Brand Activations & Pop-Ups</h3>
-      <p>Custom-built environments in NYC's most coveted neighborhoods. We scout the venue, manage permits, build the space, and staff it with brand-trained team members — all while you run your business remotely.</p>
+      <h3>Brand Activations & Pop-Up Events</h3>
+      <p>Custom-built environments in NYC's most coveted neighborhoods — Soho, Nolita, Williamsburg, the Meatpacking District. We scout the venue, pull permits, coordinate build-out, and staff your space with brand-trained team members. Whether you're launching a product, driving retail sell-through, or building street-level awareness, we produce the kind of experience people talk about.</p>
       <div class="service-number">01</div>
     </div>
     <div class="service-card yellow">
       <span class="service-icon">🌍</span>
       <h3>Remote Brand Representation</h3>
-      <p>Can't be in the city? We become your on-the-ground team. We speak your brand language and execute with precision.</p>
+      <p>Based in Europe, Asia, or anywhere outside NYC? We become your boots on the ground. You approve the vision — we execute it. Live updates, day-of photos, and real-time communication so you feel present without being there.</p>
       <div class="service-number">02</div>
     </div>
     <div class="service-card teal">
       <span class="service-icon">📸</span>
-      <h3>Content Production</h3>
-      <p>Photography, videography, and social-ready content captured on the day so your event lives beyond the moment.</p>
+      <h3>Content & Press Production</h3>
+      <p>We coordinate photographers, videographers, and content creators on-site so every activation produces assets your team can use for months. Influencer coordination and press outreach available on request.</p>
       <div class="service-number">03</div>
     </div>
     <div class="service-card coral">
-      <span class="service-icon">📋</span>
-      <h3>Corporate Events</h3>
-      <p>Product launches, client dinners, B2B activations. Professional execution for brands that need to impress.</p>
+      <span class="service-icon">💼</span>
+      <h3>Corporate & B2B Events</h3>
+      <p>Product launches, client dinners, trade show activations, and conference side-events in NYC's business districts. Professional execution that reflects your company's standard — from intimate client evenings to large-scale showcases.</p>
       <div class="service-number">04</div>
     </div>
     <div class="service-card dark wide">
       <span class="service-icon">✦</span>
       <h3>End-to-End Event Management</h3>
-      <p>Vendor sourcing, permit filing, staffing, run-of-show, logistics — everything from the first planning call to post-event reporting. You approve the plan. We execute it flawlessly.</p>
+      <p>Vendor sourcing and negotiation. Permit filing with NYC agencies. Brand-trained staffing. Run-of-show documents. Day-of logistics management. Post-event reporting with attendance figures, social reach, press mentions, and content deliverables. You approve the plan — we handle everything else from first call to final wrap.</p>
       <div class="service-number">05</div>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="process">
+<section id="process">
   <div class="section-header">
     <div>
       <div class="section-tag">The process</div>
       <h2 class="section-title">Simple from<br>anywhere in the world</h2>
     </div>
+    <p class="section-sub">We've built a process designed for clients who are running a business remotely. Everything is documented, approved, and communicated clearly at every step.</p>
   </div>
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
       <h4>Tell us your vision</h4>
-      <p>Share your brand, goals, budget, and timeline. We'll send back a proposal within 48 hours.</p>
+      <p>Share your brand, goals, timeline, and budget range. We'll respond within 24 hours and send a full proposal within 48.</p>
     </div>
     <div class="step">
       <div class="step-num">2</div>
       <h4>We plan everything</h4>
-      <p>Venue scouting, moodboards, vendor sourcing, permits. You approve at each stage.</p>
+      <p>Venue scouting, moodboards, vendor sourcing, permits, staffing plan, and run-of-show. You review and approve at each stage — nothing moves without your sign-off.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <h4>You watch it happen</h4>
-      <p>Live updates, photos, and check-ins on the day. Feel present without being there.</p>
+      <h4>You watch it come to life</h4>
+      <p>Live photo updates, real-time check-ins, and a dedicated point of contact on the day. You'll feel like you're in the room — even from 5,000 miles away.</p>
     </div>
     <div class="step">
       <div class="step-num">4</div>
       <h4>We deliver the results</h4>
-      <p>Post-event report with attendance, reach, press coverage, and content assets.</p>
+      <p>A full post-event report covering attendance, social reach, press coverage, content assets, and key takeaways — everything you need to show the ROI internally.</p>
     </div>
   </div>
 </section>
 
 <!-- WHO WE SERVE -->
-<section class="clients">
+<section id="clients">
   <div class="section-tag">Who we work with</div>
-  <h2 class="section-title">Built for brands<br>that can't be here</h2>
+  <h2 class="section-title">Built for brands<br>that need to be in the room</h2>
   <div class="clients-grid">
     <div class="client-card">
-      <div class="client-icon">🛍️</div>
-      <h4>DTC & E-commerce Brands</h4>
-      <p>Bring your online brand into physical space. Product launches, sample sales, and retail pop-ups that convert browsers into buyers.</p>
+      <div class="client-icon">✨</div>
+      <h4>Fashion & Beauty Brands</h4>
+      <p>Seasonal launches, press previews, influencer events, sample sales, and editorial activations. We understand how fashion and beauty brands need to show up in New York — polished, on-brand, and buzzworthy. Whether it's a quiet press preview in Nolita or a multi-day Soho pop-up, we make it look and feel exactly right.</p>
       <div class="tag-row">
-        <span class="client-tag purple">Product launch</span>
-        <span class="client-tag yellow">Sample sale</span>
+        <span class="client-tag coral">Press preview</span>
+        <span class="client-tag yellow">Product launch</span>
+        <span class="client-tag purple">Influencer event</span>
+      </div>
+    </div>
+    <div class="client-card">
+      <div class="client-icon">🛍️</div>
+      <h4>DTC & E-Commerce Brands</h4>
+      <p>Your brand exists online — we bring it to life in physical space. Product launches, sample sales, brand awareness activations, and limited-run retail pop-ups that turn your online audience into real-world customers. Especially powerful for brands that have NYC customers but no local presence.</p>
+      <div class="tag-row">
+        <span class="client-tag teal">Sample sale</span>
+        <span class="client-tag yellow">Brand activation</span>
+        <span class="client-tag purple">Retail pop-up</span>
       </div>
     </div>
     <div class="client-card">
       <div class="client-icon">🌐</div>
-      <h4>International Brands</h4>
-      <p>Entering the US market? We're your NYC partner. From concept to execution, fully managed without you needing to fly in.</p>
+      <h4>International Brands Entering the US</h4>
+      <p>Launching in America is a major moment. We're the NYC partner that makes it happen without you needing to be here. From US market entry activations to ongoing brand presence in New York, we handle the local logistics, vendor relationships, and cultural nuance so your brand lands the right way.</p>
       <div class="tag-row">
         <span class="client-tag teal">US market entry</span>
         <span class="client-tag coral">Brand awareness</span>
+        <span class="client-tag yellow">Remote execution</span>
       </div>
     </div>
     <div class="client-card">
       <div class="client-icon">💼</div>
-      <h4>Corporate & B2B</h4>
-      <p>Client events, conference activations, and product showcases. Professional execution that reflects your brand's standard.</p>
+      <h4>Corporate & B2B Clients</h4>
+      <p>Client entertainment, product showcases, team events, conference activations, and executive dinners in NYC. Whether you're a company headquartered elsewhere that needs a polished New York event, or a brand looking to impress clients and partners, we produce professional, detail-oriented experiences that reflect your standard.</p>
       <div class="tag-row">
-        <span class="client-tag purple">Corporate</span>
-        <span class="client-tag yellow">B2B</span>
-      </div>
-    </div>
-    <div class="client-card">
-      <div class="client-icon">✨</div>
-      <h4>Fashion & Beauty</h4>
-      <p>Seasonal launches, press previews, influencer events. We know how to make beauty and fashion brands look exceptional in real life.</p>
-      <div class="tag-row">
-        <span class="client-tag coral">Fashion week</span>
-        <span class="client-tag teal">Press event</span>
-      </div>
-    </div>
-    <div class="client-card">
-      <div class="client-icon">🍾</div>
-      <h4>Food & Beverage</h4>
-      <p>Tastings, brand partnerships, experiential dining. High-energy activations in the city's best locations.</p>
-      <div class="tag-row">
-        <span class="client-tag yellow">Tasting event</span>
-        <span class="client-tag purple">Experiential</span>
-      </div>
-    </div>
-    <div class="client-card">
-      <div class="client-icon">📱</div>
-      <h4>Tech & SaaS Brands</h4>
-      <p>Conference side-events, product demos, and thought-leadership dinners in NYC's business districts.</p>
-      <div class="tag-row">
-        <span class="client-tag teal">Demo event</span>
-        <span class="client-tag coral">Conference</span>
+        <span class="client-tag purple">Corporate event</span>
+        <span class="client-tag yellow">Client dinner</span>
+        <span class="client-tag teal">Conference</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="pricing">
+<section id="pricing">
   <div class="section-header">
     <div>
       <div class="section-tag">Investment</div>
       <h2 class="section-title">Transparent pricing.<br>No surprises.</h2>
     </div>
-    <p class="section-sub">Our fee is separate from your event budget. You always see exactly where every dollar goes.</p>
+    <p class="section-sub">Our production fee is separate from your event budget. You always see exactly where every dollar goes — before you commit to anything.</p>
   </div>
   <div class="pricing-grid">
     <div class="price-card">
-      <div class="price-tier">Starter</div>
+      <div class="price-tier">Essentials</div>
       <div class="price-amount">$3,500</div>
-      <div class="price-note">+ event budget (up to $15k)</div>
+      <div class="price-note">Production fee · event budget up to $12k</div>
       <div class="price-divider"></div>
       <ul class="price-features">
-        <li>Venue sourcing + coordination</li>
+        <li>Venue sourcing &amp; coordination</li>
         <li>Vendor management (up to 4 vendors)</li>
+        <li>Permit research &amp; filing assistance</li>
         <li>Day-of production management</li>
         <li>Run-of-show document</li>
         <li>Post-event summary report</li>
       </ul>
-      <button class="btn-price btn-price-outline">Get started →</button>
+      <button class="btn-price btn-price-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get started →</button>
     </div>
     <div class="price-card featured">
       <div class="featured-badge">Most Popular</div>
       <div class="price-tier">Full Production</div>
       <div class="price-amount">$7,500</div>
-      <div class="price-note">+ event budget (up to $50k)</div>
+      <div class="price-note">Production fee · event budget up to $50k</div>
       <div class="price-divider"></div>
       <ul class="price-features">
-        <li>Concept development + moodboarding</li>
-        <li>Full vendor network access</li>
-        <li>Permit filing + compliance</li>
+        <li>Concept development &amp; moodboarding</li>
+        <li>Full vendor network — build, staffing, A/V</li>
+        <li>Permit filing &amp; NYC compliance</li>
         <li>Brand-trained on-site staff</li>
-        <li>Photo + video coordination</li>
-        <li>Detailed post-event analytics</li>
+        <li>Photo &amp; video crew coordination</li>
+        <li>Influencer &amp; press logistics support</li>
+        <li>Detailed post-event analytics report</li>
       </ul>
-      <button class="btn-price btn-price-solid">Book this package</button>
+      <button class="btn-price btn-price-solid" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book this package</button>
     </div>
     <div class="price-card">
-      <div class="price-tier">Agency / Campaign</div>
+      <div class="price-tier">Campaign & Retainer</div>
       <div class="price-amount">Custom</div>
-      <div class="price-note">Multi-city or ongoing retainer</div>
+      <div class="price-note">Multi-event campaigns or ongoing work</div>
       <div class="price-divider"></div>
       <ul class="price-features">
-        <li>Multi-city coordination</li>
-        <li>Campaign-level strategy</li>
+        <li>Multiple events planned together</li>
+        <li>Campaign-level creative strategy</li>
         <li>Dedicated account management</li>
-        <li>Priority scheduling</li>
-        <li>Monthly retainer available</li>
+        <li>Priority scheduling &amp; vendor rates</li>
+        <li>Monthly retainer option available</li>
+        <li>Ideal for seasonal brand calendars</li>
       </ul>
-      <button class="btn-price btn-price-outline">Let's talk →</button>
+      <button class="btn-price btn-price-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Let's talk →</button>
+    </div>
+  </div>
+  <div class="pricing-note">
+    <div class="pricing-note-icon">💡</div>
+    <p><strong>How our pricing works:</strong> Our production fee covers our time, expertise, and management. Your event budget — for venue, vendors, staffing, and build costs — is separate and held in escrow until needed. We require a 50% deposit of our fee at contract signing, and the remainder is due 7 days before your event. We never pay vendors from our own pocket and will never put you or ourselves in a difficult position financially. Every dollar is accounted for before we spend it.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header" style="position:relative;">
+    <div>
+      <div class="section-tag">Get in touch</div>
+      <h2 class="section-title">Tell us about<br>your brand</h2>
+    </div>
+    <p class="section-sub">We respond within 24 hours and have a full proposal to you within 48.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-left">
+      <h3>Let's make something worth talking about.</h3>
+      <p>Whether you have a fully formed brief or just a rough idea — reach out. We'll ask the right questions, understand your goals, and come back with a plan that fits your brand and your budget. No pressure, no obligation on the first call.</p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div class="contact-detail-text">
+          <span>Based in</span>
+          New York City, NY
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">⚡</div>
+        <div class="contact-detail-text">
+          <span>Proposal turnaround</span>
+          Within 48 hours of your inquiry
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">🌍</div>
+        <div class="contact-detail-text">
+          <span>We work with</span>
+          Clients worldwide — remote-friendly
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📅</div>
+        <div class="contact-detail-text">
+          <span>Minimum lead time</span>
+          3–4 weeks for most activations
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div id="formContent">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First name</label>
+            <input type="text" id="firstName" placeholder="Your first name" />
+          </div>
+          <div class="form-group">
+            <label>Last name</label>
+            <input type="text" id="lastName" placeholder="Your last name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Brand or company name</label>
+          <input type="text" id="brandName" placeholder="The brand we'll be producing for" />
+        </div>
+        <div class="form-group">
+          <label>Your email</label>
+          <input type="email" id="email" placeholder="Where we'll send your proposal" />
+        </div>
+        <div class="form-group">
+          <label>What type of event are you planning?</label>
+          <select id="eventType">
+            <option value="" disabled selected>Choose the closest match</option>
+            <option>Fashion or beauty launch</option>
+            <option>DTC or product pop-up</option>
+            <option>International brand US entry</option>
+            <option>Corporate or B2B event</option>
+            <option>Press or influencer event</option>
+            <option>Sample sale</option>
+            <option>Large-scale or campaign activation</option>
+            <option>Not sure yet — I need guidance</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Total budget range</label>
+            <select id="budget">
+              <option value="" disabled selected>Production fee + event costs</option>
+              <option>Under $15,000</option>
+              <option>$15,000 – $35,000</option>
+              <option>$35,000 – $75,000</option>
+              <option>$75,000 – $150,000</option>
+              <option>$150,000+</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>When are you thinking?</label>
+            <select id="timeframe">
+              <option value="" disabled selected>Approximate timeline</option>
+              <option>Within 4 weeks</option>
+              <option>1 to 3 months out</option>
+              <option>3 to 6 months out</option>
+              <option>6 or more months out</option>
+              <option>Just exploring for now</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your vision</label>
+          <textarea id="message" placeholder="What's the brand, what's the goal, and what does success look like for this activation? Share as much or as little as you have right now."></textarea>
+        </div>
+        <button class="form-submit" id="submitBtn" onclick="submitForm()">Send my inquiry ✦</button>
+        <p class="form-note">We respond within 24 hours. Your information is never shared or sold.</p>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">✦</div>
+        <h4>You're in our inbox.</h4>
+        <p>We'll review your inquiry and come back to you within 24 hours with initial thoughts. A full written proposal follows within 48. Talk soon.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta">
-  <h2>Ready to pop up<br>in New York City?</h2>
-  <p>Tell us about your brand and we'll put together a proposal within 48 hours.</p>
-  <div class="cta-buttons">
-    <a href="#" class="btn-primary">Start your project ✦</a>
-    <a href="#" class="btn-secondary">See the portfolio →</a>
-  </div>
-</section>
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <h2>Ready to pop up in <span>New York City?</span></h2>
+  <p>Proposals delivered in 48 hours. No commitment required.</p>
+  <a href="#contact" class="btn-yellow">Start the conversation ✦</a>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -964,34 +932,33 @@
     <div class="footer-links">
       <h5>Services</h5>
       <ul>
-        <li><a href="#">Brand Activations</a></li>
-        <li><a href="#">Corporate Events</a></li>
-        <li><a href="#">Remote Production</a></li>
-        <li><a href="#">Content Creation</a></li>
+        <li><a href="services.html">Brand Activations</a></li>
+        <li><a href="services.html">Corporate Events</a></li>
+        <li><a href="services.html">Remote Production</a></li>
+        <li><a href="services.html">Content &amp; Press</a></li>
       </ul>
     </div>
     <div class="footer-links">
       <h5>Company</h5>
       <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Portfolio</a></li>
-        <li><a href="#">Pricing</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="who-we-serve.html">Who We Serve</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
     <div class="footer-links">
-      <h5>Cities</h5>
+      <h5>Connect</h5>
       <ul>
-        <li><a href="#">New York City</a></li>
-        <li><a href="#">Los Angeles</a></li>
-        <li><a href="#">Chicago</a></li>
-        <li><a href="#">Miami</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">TikTok</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 Pop Up Planners. All rights reserved.</span>
-    <span>NYC · LA · CHI · MIA</span>
+    <span>© 2026 Pop Up Planners LLC. All rights reserved. New York City.</span>
+    <span>Made in NYC ✦</span>
   </div>
 </footer>
 
@@ -1015,7 +982,7 @@
   }
   animateRing();
 
-  document.querySelectorAll('a, button, .service-card, .client-card, .price-card, .step').forEach(el => {
+  document.querySelectorAll('a, button, .service-card, .client-card, .price-card, .step, input, select, textarea').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.transform = 'translate(-50%,-50%) scale(2)';
       cursor.style.background = 'var(--yellow)';
@@ -1029,6 +996,50 @@
       ring.style.opacity = '0.6';
     });
   });
+
+  async function submitForm() {
+    const required = ['firstName', 'email', 'brandName', 'eventType'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = 'var(--coral)'; valid = false; }
+      else el.style.borderColor = '';
+    });
+    if (!valid) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const data = {
+      firstName: document.getElementById('firstName').value,
+      lastName:  document.getElementById('lastName').value,
+      brandName: document.getElementById('brandName').value,
+      email:     document.getElementById('email').value,
+      eventType: document.getElementById('eventType').value,
+      budget:    document.getElementById('budget').value,
+      timeframe: document.getElementById('timeframe').value,
+      message:   document.getElementById('message').value,
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xwvryebe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        document.getElementById('formContent').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      } else {
+        btn.textContent = 'Something went wrong — please try again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Something went wrong — please try again';
+      btn.disabled = false;
+    }
+  }
 </script>
 </body>
 </html>
