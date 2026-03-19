@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — Pop Up Planners NYC</title>
+<meta name="description" content="See exactly how Pop Up Planners produces your NYC brand activation from first conversation to post-event report. A transparent, remote-friendly process built for brands worldwide.">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple-deep: #2D0A5C;
+    --purple-mid: #6B21C8;
+    --purple-bright: #9B4DFF;
+    --purple-soft: #C084FC;
+    --yellow: #FFE135;
+    --coral: #FF5E5B;
+    --teal: #00D4AA;
+    --cream: #FFF8F0;
+    --dark: #120824;
+    --white: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; cursor: none; }
+
+  .cursor { width: 12px; height: 12px; background: var(--purple-bright); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease, background 0.2s ease; transform: translate(-50%, -50%); }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--purple-bright); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.25s ease; opacity: 0.6; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,248,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(107,33,200,0.08); }
+  .nav-logo { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 900; letter-spacing: -0.02em; color: var(--purple-deep); display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-p { width: 32px; height: 32px; background: var(--purple-bright); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 17px; font-weight: 900; transform: rotate(-4deg); transition: transform 0.2s; }
+  .logo-p:hover { transform: rotate(4deg) scale(1.1); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--purple-deep); opacity: 0.7; transition: opacity 0.2s; letter-spacing: 0.02em; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-links a.active { opacity: 1; color: var(--purple-bright); }
+  .nav-cta { background: var(--purple-deep) !important; color: var(--yellow) !important; padding: 10px 22px !important; border-radius: 100px; opacity: 1 !important; font-size: 13px !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--purple-bright) !important; }
+
+  /* PAGE HERO */
+  .page-hero { padding: 160px 48px 90px; background: var(--purple-deep); position: relative; overflow: hidden; }
+  .page-hero::before { content: 'Process'; position: absolute; font-family: 'Unbounded', sans-serif; font-size: 180px; font-weight: 900; color: white; opacity: 0.03; bottom: -20px; right: -10px; line-height: 1; pointer-events: none; white-space: nowrap; }
+  .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; pointer-events: none; }
+  .hb1 { width: 420px; height: 420px; background: var(--purple-bright); top: -120px; right: 80px; }
+  .hb2 { width: 260px; height: 260px; background: var(--teal); bottom: -60px; left: 160px; }
+  .page-hero-inner { position: relative; max-width: 720px; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .breadcrumb a { font-size: 12px; color: white; opacity: 0.45; text-decoration: none; transition: opacity 0.2s; }
+  .breadcrumb a:hover { opacity: 0.8; }
+  .breadcrumb span { font-size: 12px; color: white; opacity: 0.25; }
+  .breadcrumb-current { font-size: 12px; color: var(--yellow); opacity: 0.8; }
+  .page-hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(36px, 5vw, 62px); font-weight: 900; color: white; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 20px; }
+  .page-hero h1 span { color: var(--yellow); }
+  .page-hero p { font-size: 17px; color: white; opacity: 0.6; line-height: 1.75; font-weight: 300; max-width: 580px; margin-bottom: 36px; }
+  .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: white; font-size: 12px; font-weight: 500; padding: 7px 16px; border-radius: 100px; }
+
+  /* PHASE NAVIGATION */
+  .phase-nav { background: white; border-bottom: 1px solid rgba(107,33,200,0.08); position: sticky; top: 72px; z-index: 90; overflow-x: auto; }
+  .phase-nav-inner { display: flex; padding: 0 48px; }
+  .phase-link { display: flex; align-items: center; gap: 8px; padding: 18px 24px; font-size: 13px; font-weight: 500; color: var(--purple-deep); opacity: 0.5; text-decoration: none; border-bottom: 2px solid transparent; transition: opacity 0.2s, border-color 0.2s; white-space: nowrap; }
+  .phase-link:hover { opacity: 0.85; }
+  .phase-link.active { opacity: 1; color: var(--purple-bright); border-bottom-color: var(--purple-bright); }
+  .phase-num { width: 22px; height: 22px; border-radius: 50%; background: rgba(155,77,255,0.12); color: var(--purple-bright); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; }
+  .phase-link.active .phase-num { background: var(--purple-bright); color: white; }
+
+  /* OVERVIEW STRIP */
+  .overview-strip { background: var(--yellow); padding: 32px 48px; }
+  .overview-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; }
+  .overview-stat { text-align: center; }
+  .overview-stat-num { font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; }
+  .overview-stat-label { font-size: 12px; color: var(--purple-deep); opacity: 0.6; font-weight: 500; margin-top: 2px; }
+  .overview-divider { width: 1px; height: 48px; background: rgba(45,10,92,0.15); }
+
+  /* PHASE SECTIONS */
+  .phase { padding: 90px 48px; position: relative; }
+  .phase:nth-child(odd) { background: var(--cream); }
+  .phase:nth-child(even) { background: white; }
+  .phase-inner { max-width: 1100px; margin: 0 auto; }
+
+  .phase-header { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: start; margin-bottom: 56px; }
+  .phase-badge { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .phase-circle { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 900; flex-shrink: 0; }
+  .phase-circle.p1 { background: var(--purple-bright); color: white; box-shadow: 0 12px 32px rgba(155,77,255,0.35); }
+  .phase-circle.p2 { background: var(--coral); color: white; box-shadow: 0 12px 32px rgba(255,94,91,0.35); }
+  .phase-circle.p3 { background: var(--teal); color: var(--purple-deep); box-shadow: 0 12px 32px rgba(0,212,170,0.35); }
+  .phase-circle.p4 { background: var(--yellow); color: var(--purple-deep); box-shadow: 0 12px 32px rgba(255,225,53,0.4); }
+  .phase-circle.p5 { background: var(--purple-deep); color: white; box-shadow: 0 12px 32px rgba(45,10,92,0.3); }
+  .phase-circle.p6 { background: var(--dark); color: var(--yellow); box-shadow: 0 12px 32px rgba(18,8,36,0.35); }
+  .phase-line { width: 2px; flex: 1; min-height: 32px; background: linear-gradient(to bottom, rgba(155,77,255,0.3), transparent); border-radius: 1px; }
+
+  .phase-heading { padding-top: 8px; }
+  .phase-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+  .phase-label.p1 { color: var(--purple-bright); }
+  .phase-label.p2 { color: var(--coral); }
+  .phase-label.p3 { color: var(--teal); }
+  .phase-label.p4 { color: #8a6d00; }
+  .phase-label.p5 { color: var(--purple-mid); }
+  .phase-label.p6 { color: var(--purple-deep); opacity: 0.7; }
+  .phase-heading h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(22px, 3vw, 36px); font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; }
+  .phase-heading p { font-size: 15px; line-height: 1.8; color: var(--purple-deep); opacity: 0.65; font-weight: 300; max-width: 680px; }
+
+  /* PHASE CONTENT GRIDS */
+  .phase-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px; }
+  .phase-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+
+  .phase-card { border-radius: 18px; padding: 28px 24px; border: 1px solid rgba(107,33,200,0.08); background: white; transition: transform 0.25s; }
+  .phase:nth-child(even) .phase-card { background: var(--cream); }
+  .phase-card:hover { transform: translateY(-3px); }
+  .phase-card-icon { font-size: 26px; margin-bottom: 14px; }
+  .phase-card h4 { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: var(--purple-deep); letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3; }
+  .phase-card p { font-size: 13px; line-height: 1.65; color: var(--purple-deep); opacity: 0.6; font-weight: 300; }
+
+  /* HIGHLIGHT CARD */
+  .highlight-card { border-radius: 18px; padding: 32px 28px; }
+  .highlight-card.purple { background: var(--purple-deep); color: white; }
+  .highlight-card.yellow { background: var(--yellow); color: var(--purple-deep); }
+  .highlight-card.teal { background: var(--teal); color: var(--purple-deep); }
+  .highlight-card.coral { background: var(--coral); color: white; }
+  .highlight-card.dark { background: var(--dark); color: white; }
+  .highlight-card h4 { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.3; }
+  .highlight-card p { font-size: 13px; line-height: 1.7; opacity: 0.75; font-weight: 300; }
+  .highlight-card .hc-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+  .highlight-card .hc-list li { font-size: 13px; line-height: 1.55; opacity: 0.8; font-weight: 300; display: flex; gap: 10px; align-items: flex-start; }
+  .highlight-card .hc-list li::before { content: '✦'; font-size: 9px; opacity: 0.6; margin-top: 3px; flex-shrink: 0; }
+
+  /* CHECKLIST CARD */
+  .checklist-card { background: white; border-radius: 18px; padding: 28px 24px; border: 1px solid rgba(107,33,200,0.08); }
+  .phase:nth-child(even) .checklist-card { background: var(--cream); }
+  .checklist-title { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: var(--purple-deep); margin-bottom: 18px; letter-spacing: -0.01em; }
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.55; color: var(--purple-deep); font-weight: 300; }
+  .chk { width: 20px; height: 20px; min-width: 20px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; margin-top: 1px; }
+  .chk.p { background: rgba(155,77,255,0.12); color: var(--purple-bright); }
+  .chk.c { background: rgba(255,94,91,0.12); color: var(--coral); }
+  .chk.t { background: rgba(0,212,170,0.15); color: #007a62; }
+  .chk.y { background: rgba(255,225,53,0.2); color: #7a5e00; }
+  .chk.d { background: rgba(107,33,200,0.1); color: var(--purple-mid); }
+  .chk.dk { background: rgba(18,8,36,0.1); color: var(--purple-deep); }
+
+  /* TIMELINE STRIP */
+  .timeline-strip { background: var(--purple-deep); border-radius: 20px; padding: 36px 32px; margin-bottom: 24px; }
+  .timeline-strip-title { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: white; margin-bottom: 28px; letter-spacing: -0.01em; }
+  .tl-row { display: flex; gap: 0; position: relative; }
+  .tl-row::before { content: ''; position: absolute; top: 20px; left: 20px; right: 20px; height: 1px; background: rgba(255,255,255,0.12); }
+  .tl-step { flex: 1; text-align: center; position: relative; padding: 0 8px; }
+  .tl-dot { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 900; margin: 0 auto 14px; position: relative; z-index: 1; }
+  .tl-dot.p1 { background: var(--purple-bright); color: white; }
+  .tl-dot.p2 { background: var(--coral); color: white; }
+  .tl-dot.p3 { background: var(--teal); color: var(--purple-deep); }
+  .tl-dot.p4 { background: var(--yellow); color: var(--purple-deep); }
+  .tl-dot.p5 { background: rgba(255,255,255,0.15); color: white; }
+  .tl-dot.p6 { background: rgba(255,255,255,0.25); color: white; }
+  .tl-step-label { font-size: 11px; font-weight: 600; color: white; opacity: 0.5; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .tl-step-title { font-size: 12px; font-weight: 500; color: white; line-height: 1.4; }
+
+  /* WHAT TO EXPECT SECTION */
+  .expect-section { padding: 90px 48px; background: var(--purple-deep); }
+  .expect-inner { max-width: 1100px; margin: 0 auto; }
+  .expect-section .section-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--yellow); font-weight: 700; margin-bottom: 12px; }
+  .expect-section h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; color: white; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 56px; }
+  .expect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .expect-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px 28px; transition: background 0.25s, transform 0.25s; }
+  .expect-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+  .expect-icon { font-size: 28px; margin-bottom: 16px; }
+  .expect-card h4 { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: white; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.3; }
+  .expect-card p { font-size: 13px; line-height: 1.7; color: white; opacity: 0.55; font-weight: 300; }
+
+  /* COMMUNICATION SECTION */
+  .comms-section { padding: 90px 48px; background: white; }
+  .comms-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple-bright); font-weight: 700; margin-bottom: 12px; }
+  .section-title { font-family: 'Unbounded', sans-serif; font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+  .section-sub-text { font-size: 15px; line-height: 1.75; color: var(--purple-deep); opacity: 0.6; font-weight: 300; max-width: 580px; margin-bottom: 56px; }
+  .comms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .comms-card { border-radius: 20px; padding: 32px 28px; }
+  .comms-card.light { background: var(--cream); border: 1px solid rgba(107,33,200,0.08); }
+  .comms-card.purple { background: var(--purple-deep); color: white; }
+  .comms-card.yellow { background: var(--yellow); color: var(--purple-deep); }
+  .comms-card.teal { background: var(--teal); color: var(--purple-deep); }
+  .comms-card h4 { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.3; }
+  .comms-card p { font-size: 13px; line-height: 1.7; opacity: 0.7; font-weight: 300; }
+  .comms-icon { font-size: 28px; margin-bottom: 16px; }
+  .comms-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .comms-card ul li { font-size: 13px; line-height: 1.5; opacity: 0.75; font-weight: 300; display: flex; gap: 8px; }
+  .comms-card ul li::before { content: '→'; opacity: 0.5; flex-shrink: 0; }
+
+  /* PAYMENTS SECTION */
+  .payments-section { padding: 90px 48px; background: var(--cream); }
+  .payments-inner { max-width: 1100px; margin: 0 auto; }
+  .payments-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
+  .payments-left h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+  .payments-left p { font-size: 15px; line-height: 1.8; color: var(--purple-deep); opacity: 0.65; font-weight: 300; margin-bottom: 28px; }
+  .payment-step { display: flex; gap: 20px; align-items: flex-start; padding: 20px 0; border-bottom: 1px solid rgba(107,33,200,0.08); }
+  .payment-step:last-child { border-bottom: none; }
+  .pay-num { width: 40px; height: 40px; min-width: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 900; }
+  .pay-num.n1 { background: rgba(155,77,255,0.12); color: var(--purple-bright); }
+  .pay-num.n2 { background: rgba(0,212,170,0.15); color: #007a62; }
+  .pay-num.n3 { background: rgba(255,225,53,0.2); color: #7a5e00; }
+  .pay-content h5 { font-size: 14px; font-weight: 600; color: var(--purple-deep); margin-bottom: 5px; }
+  .pay-content p { font-size: 13px; line-height: 1.65; color: var(--purple-deep); opacity: 0.6; font-weight: 300; }
+  .payments-right { display: flex; flex-direction: column; gap: 16px; }
+  .pay-card { border-radius: 18px; padding: 24px; }
+  .pay-card.purple { background: var(--purple-deep); color: white; }
+  .pay-card.yellow { background: var(--yellow); color: var(--purple-deep); }
+  .pay-card.teal { background: var(--teal); color: var(--purple-deep); }
+  .pay-card-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; opacity: 0.55; margin-bottom: 8px; }
+  .pay-card-amount { font-family: 'Unbounded', sans-serif; font-size: 22px; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 4px; }
+  .pay-card-note { font-size: 12px; opacity: 0.6; font-weight: 300; }
+
+  /* FAQ */
+  .faq-section { padding: 90px 48px; background: white; }
+  .faq-inner { max-width: 1100px; margin: 0 auto; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 56px; }
+  .faq-item { background: var(--cream); border: 1px solid rgba(107,33,200,0.08); border-radius: 16px; overflow: hidden; transition: background 0.2s; }
+  .faq-item:hover { background: white; }
+  .faq-q { padding: 22px 24px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; gap: 16px; }
+  .faq-q span { font-size: 14px; font-weight: 500; color: var(--purple-deep); line-height: 1.4; }
+  .faq-toggle { width: 28px; height: 28px; min-width: 28px; border-radius: 8px; background: rgba(155,77,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--purple-bright); font-size: 18px; font-weight: 300; transition: transform 0.25s, background 0.2s; }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); background: var(--purple-bright); color: white; }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-item.open .faq-a { max-height: 400px; }
+  .faq-a-inner { padding: 0 24px 22px; font-size: 13px; line-height: 1.75; color: var(--purple-deep); opacity: 0.65; font-weight: 300; }
+
+  /* CTA STRIP */
+  .cta-strip { padding: 90px 48px; background: var(--purple-deep); text-align: center; }
+  .cta-strip h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 3.5vw, 42px); font-weight: 900; color: white; letter-spacing: -0.03em; line-height: 1.1; max-width: 600px; margin: 0 auto 16px; }
+  .cta-strip h2 span { color: var(--yellow); }
+  .cta-strip p { font-size: 15px; color: white; opacity: 0.55; margin-bottom: 36px; font-weight: 300; max-width: 440px; margin-left: auto; margin-right: auto; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-yellow { background: var(--yellow); color: var(--purple-deep); padding: 16px 36px; border-radius: 100px; font-size: 15px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(255,225,53,0.3); }
+  .btn-yellow:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(255,225,53,0.45); }
+  .btn-outline-white { background: transparent; color: white; padding: 16px 32px; border-radius: 100px; font-size: 15px; font-weight: 500; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.25); display: inline-flex; align-items: center; gap: 8px; transition: border-color 0.2s, background 0.2s; }
+  .btn-outline-white:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: white; padding: 60px 48px 40px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; flex-wrap: wrap; gap: 40px; }
+  .footer-brand .footer-logo { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 900; color: white; margin-bottom: 12px; }
+  .footer-brand .footer-logo span { color: var(--purple-bright); }
+  .footer-brand p { font-size: 13px; opacity: 0.4; max-width: 220px; line-height: 1.6; font-weight: 300; }
+  .footer-links h5 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; margin-bottom: 16px; font-weight: 600; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links ul a { color: white; text-decoration: none; font-size: 13px; opacity: 0.6; transition: opacity 0.2s; }
+  .footer-links ul a:hover { opacity: 1; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; opacity: 0.35; flex-wrap: wrap; gap: 12px; }
+
+  /* SECTION DIVIDER */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(107,33,200,0.12), transparent); margin: 0 48px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-p">P</div>
+    Pop Up Planners
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="how-it-works.html" class="active">How It Works</a></li>
+    <li><a href="#">Who We Serve</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Get a Quote →</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-blob hb1"></div>
+  <div class="hero-blob hb2"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span class="breadcrumb-current">How It Works</span>
+    </div>
+    <h1>From first call<br>to <span>final report</span></h1>
+    <p>No vague promises. No surprises mid-project. This is exactly what happens from the moment you reach out to the moment we deliver your post-event report — every step, every approval, every dollar accounted for.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">📞 Phase 1 — Inquiry</span>
+      <span class="hero-pill">🗺️ Phase 2 — Planning</span>
+      <span class="hero-pill">🔒 Phase 3 — Locking it in</span>
+      <span class="hero-pill">🏗️ Phase 4 — Build</span>
+      <span class="hero-pill">✦ Phase 5 — Event days</span>
+      <span class="hero-pill">📊 Phase 6 — Wrap</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE NAV -->
+<div class="phase-nav">
+  <div class="phase-nav-inner">
+    <a href="#inquiry" class="phase-link active"><span class="phase-num">1</span> Inquiry</a>
+    <a href="#planning" class="phase-link"><span class="phase-num">2</span> Planning</a>
+    <a href="#locking" class="phase-link"><span class="phase-num">3</span> Locking it in</a>
+    <a href="#build" class="phase-link"><span class="phase-num">4</span> Build & prep</a>
+    <a href="#event" class="phase-link"><span class="phase-num">5</span> Event days</a>
+    <a href="#wrap" class="phase-link"><span class="phase-num">6</span> Wrap & report</a>
+  </div>
+</div>
+
+<!-- OVERVIEW STRIP -->
+<div class="overview-strip">
+  <div class="overview-inner">
+    <div class="overview-stat">
+      <div class="overview-stat-num">48h</div>
+      <div class="overview-stat-label">Proposal turnaround</div>
+    </div>
+    <div class="overview-divider"></div>
+    <div class="overview-stat">
+      <div class="overview-stat-num">6</div>
+      <div class="overview-stat-label">Phases, start to finish</div>
+    </div>
+    <div class="overview-divider"></div>
+    <div class="overview-stat">
+      <div class="overview-stat-num">3–6</div>
+      <div class="overview-stat-label">Weeks typical lead time</div>
+    </div>
+    <div class="overview-divider"></div>
+    <div class="overview-stat">
+      <div class="overview-stat-num">0</div>
+      <div class="overview-stat-label">Surprises on the invoice</div>
+    </div>
+    <div class="overview-divider"></div>
+    <div class="overview-stat">
+      <div class="overview-stat-num">100%</div>
+      <div class="overview-stat-label">Remote-friendly</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PHASE 1: INQUIRY ─── -->
+<section class="phase" id="inquiry">
+  <div class="phase-inner">
+    <div class="phase-header">
+      <div class="phase-badge">
+        <div class="phase-circle p1">1</div>
+        <div class="phase-line"></div>
+      </div>
+      <div class="phase-heading">
+        <div class="phase-label p1">Phase 1 · Week 1</div>
+        <h2>You reach out.<br>We respond within 24 hours.</h2>
+        <p>The first step is simple: tell us what you're working toward. You don't need a finished brief, a locked budget, or a specific date. Even a rough idea is enough to get started. We'll ask the right questions, understand your goals, and put together a full written proposal within 48 hours of your inquiry — no commitment required on your end.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-3">
+      <div class="phase-card">
+        <div class="phase-card-icon">💬</div>
+        <h4>Fill out our inquiry form</h4>
+        <p>Share your brand name, event type, rough budget range, and timeline. The more context you give us, the more tailored our proposal will be — but even a few sentences is enough to get started.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">📞</div>
+        <h4>Discovery call (30–45 min)</h4>
+        <p>We schedule a video call to go deeper: your brand story, your audience, your must-haves, your deal-breakers. This is where we start to understand whether we're the right fit for each other — and we'll be honest if we're not.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">📄</div>
+        <h4>Proposal in 48 hours</h4>
+        <p>A clear written proposal covering our recommended approach, a rough budget breakdown, a sample timeline, and our production fee. No fluff, no vague language — just what you need to make a decision.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-2">
+      <div class="highlight-card purple">
+        <h4>What to include in your first message</h4>
+        <p>Don't overthink it. Here's what's useful to know up front:</p>
+        <ul class="hc-list">
+          <li>Your brand name and what you sell or do</li>
+          <li>What kind of event you have in mind (pop-up, launch, dinner, activation)</li>
+          <li>A rough sense of your budget — even a range like "$10k–$30k" is helpful</li>
+          <li>Your preferred timing or target date</li>
+          <li>Any specific neighborhoods, venues, or aesthetics you have in mind</li>
+          <li>Where you're based (so we know how remote this needs to be)</li>
+        </ul>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-title">What happens after you submit</div>
+        <ul class="checklist">
+          <li><span class="chk p">✓</span> You receive a confirmation within 2 hours during business hours</li>
+          <li><span class="chk p">✓</span> We review your inquiry and reach out to schedule a discovery call</li>
+          <li><span class="chk p">✓</span> Discovery call scheduled within 1–2 business days</li>
+          <li><span class="chk p">✓</span> Written proposal delivered within 48 hours of the call</li>
+          <li><span class="chk p">✓</span> Proposal includes: approach, budget range, timeline, and our fee</li>
+          <li><span class="chk p">✓</span> No commitment, no deposit, no obligation at this stage</li>
+          <li><span class="chk p">✓</span> You have as much time as you need to review and ask questions</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PHASE 2: PLANNING ─── -->
+<section class="phase" id="planning">
+  <div class="phase-inner">
+    <div class="phase-header">
+      <div class="phase-badge">
+        <div class="phase-circle p2">2</div>
+        <div class="phase-line"></div>
+      </div>
+      <div class="phase-heading">
+        <div class="phase-label p2">Phase 2 · Week 2</div>
+        <h2>We build the plan.<br>You approve every step.</h2>
+        <p>Once you've signed the contract and paid the 50% deposit, the real work begins. We go deep on your brand, scout venues, develop the creative direction, and start sourcing vendors. Nothing moves forward without your explicit approval — every moodboard, every venue option, every vendor selection comes to you first.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-3">
+      <div class="phase-card">
+        <div class="phase-card-icon">🗺️</div>
+        <h4>Venue scouting begins</h4>
+        <p>We identify 3–5 venues across the right NYC neighborhoods for your brand. Each option comes with a video walkthrough, spec sheet, rental cost, availability, and our honest recommendation. You choose — or you tell us what's missing and we keep looking.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">🎨</div>
+        <h4>Moodboard & creative direction</h4>
+        <p>We develop a visual direction for the space — layout, color palette, materials, signage, lighting references, and furniture style. This is presented as a moodboard for your review. If it's not right, we revise. Nothing gets built until the direction is locked.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">🤝</div>
+        <h4>Vendor sourcing starts</h4>
+        <p>Based on your approved direction, we begin reaching out to our vendor network: fabrication, furniture rental, florals, A/V, signage, staffing. We get quotes, negotiate rates, and present options to you with a clear recommendation before committing to anything.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-2">
+      <div class="checklist-card">
+        <div class="checklist-title">Your approvals during planning</div>
+        <ul class="checklist">
+          <li><span class="chk c">✓</span> Venue shortlist — you select from our top options</li>
+          <li><span class="chk c">✓</span> Creative moodboard — approved before any design work proceeds</li>
+          <li><span class="chk c">✓</span> Space layout — reviewed and confirmed before build begins</li>
+          <li><span class="chk c">✓</span> Vendor selections — you see who we're using and what they cost</li>
+          <li><span class="chk c">✓</span> Budget line-by-line — approved before any vendor deposits are paid</li>
+          <li><span class="chk c">✓</span> Staffing plan — headcount, roles, hours confirmed with you</li>
+          <li><span class="chk c">✓</span> Permit strategy — we explain what's needed and you sign off</li>
+        </ul>
+      </div>
+      <div class="highlight-card coral">
+        <h4>How we handle decisions when you're remote</h4>
+        <p>All approvals happen asynchronously through a shared Google Drive folder. Every venue option, moodboard revision, and vendor quote is uploaded there with our notes and recommendation. You review on your schedule, leave comments, and we action them — no time zone confusion, no dropped email threads.</p>
+        <ul class="hc-list">
+          <li>Shared Drive folder set up at project kickoff</li>
+          <li>Every document labeled with version and date</li>
+          <li>Milestone check-in calls at each major approval stage</li>
+          <li>WhatsApp or Slack for quick questions between calls</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PHASE 3: LOCKING IN ─── -->
+<section class="phase" id="locking">
+  <div class="phase-inner">
+    <div class="phase-header">
+      <div class="phase-badge">
+        <div class="phase-circle p3">3</div>
+        <div class="phase-line"></div>
+      </div>
+      <div class="phase-heading">
+        <div class="phase-label p3">Phase 3 · Weeks 3–4</div>
+        <h2>Everything gets confirmed.<br>No loose ends.</h2>
+        <p>This is where we shift from planning to confirming. The venue is booked, all vendors are under contract, permits are filed, and the run-of-show document starts to take shape. By the end of this phase, the event exists on paper in complete detail — every arrival time, every vendor role, every contingency.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-3">
+      <div class="phase-card">
+        <div class="phase-card-icon">📋</div>
+        <h4>Permits filed</h4>
+        <p>We file everything that's required with the relevant NYC agencies — whether that's sidewalk usage with the DOT, sound amplification permits, or temporary food service licensing. We follow up until everything is confirmed in writing, so there are no surprises on event day.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">🔒</div>
+        <h4>All vendors contracted</h4>
+        <p>Every vendor is under a signed agreement with clear deliverables, arrival times, and cancellation terms. Deposits are paid from your event escrow — never out of our pocket. You receive a full vendor list with contact details for your records.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">🗓️</div>
+        <h4>Run-of-show drafted</h4>
+        <p>A minute-by-minute schedule covering load-in, setup, event hours, and teardown. Every vendor arrival time, staff assignment, and logistical note is in here. It gets shared with you for review and then distributed to all involved parties 1 week before the event.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-2">
+      <div class="highlight-card teal">
+        <h4>What "locked in" actually means</h4>
+        <p>By the end of Phase 3, you should be able to step away entirely and know the event will happen exactly as planned. That means:</p>
+        <ul class="hc-list">
+          <li>Venue contract signed, deposit paid, access confirmed</li>
+          <li>All permits confirmed in writing from NYC agencies</li>
+          <li>Every vendor under contract with locked pricing</li>
+          <li>Staffing headcount finalized and scheduled</li>
+          <li>Run-of-show v1 shared with all parties</li>
+          <li>Your remaining balance invoice issued (due 7 days before event)</li>
+        </ul>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-title">The final balance trigger</div>
+        <ul class="checklist">
+          <li><span class="chk t">✓</span> Your remaining 50% production fee is due 7 days before event day</li>
+          <li><span class="chk t">✓</span> Final event budget reconciliation presented — you approve before any remaining vendor payments are made</li>
+          <li><span class="chk t">✓</span> Any unused float from your event budget is returned post-event</li>
+          <li><span class="chk t">✓</span> We never request more money than what was agreed in the proposal without your explicit approval</li>
+          <li><span class="chk t">✓</span> All international payments via Wise — no hidden currency fees</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PHASE 4: BUILD & PREP ─── -->
+<section class="phase" id="build">
+  <div class="phase-inner">
+    <div class="phase-header">
+      <div class="phase-badge">
+        <div class="phase-circle p4">4</div>
+        <div class="phase-line"></div>
+      </div>
+      <div class="phase-heading">
+        <div class="phase-label p4">Phase 4 · Final week before</div>
+        <h2>Staff briefed. Space built.<br>Everything in place.</h2>
+        <p>The week before the event is when it all comes together physically. We brief every staff member on your brand, conduct venue walkthroughs with key vendors, confirm all delivery windows, and do a final check against the run-of-show. You'll hear from us at least once a day this week.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-3">
+      <div class="phase-card">
+        <div class="phase-card-icon">👥</div>
+        <h4>Staff brand briefing</h4>
+        <p>Every person working your event — whether that's a brand ambassador, a check-in host, or a sales associate — receives a written brand brief and attends a briefing call before the event. They know your product, your tone, your talking points, and your non-negotiables. They represent you as if they work for you.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">🏗️</div>
+        <h4>Load-in & build day</h4>
+        <p>We're on-site from the first vendor arrival. We manage the build chronologically — furniture in first, then fixtures, then signage, then product placement and final styling. We send you photos throughout the day so you can see it coming together in real time. Final styling walkthrough is sent to you for approval before doors open.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">✅</div>
+        <h4>Final checks</h4>
+        <p>The night before or morning of: every vendor has confirmed arrival. Run-of-show is distributed to all parties. Contingency plans are in place for weather, no-shows, and tech issues. You receive a "we're ready" confirmation with final photos before the event opens to the public.</p>
+      </div>
+    </div>
+
+    <div class="highlight-card purple" style="margin-bottom: 0;">
+      <h4>What our staff briefing covers</h4>
+      <p>We don't just hand staff a fact sheet. Our brand briefings are tailored to your specific event and include: brand overview and values, product knowledge and key selling points, how to greet guests and handle common questions, what's on-limits and off-limits to say, how to handle press or influencer requests, escalation protocol (who to call for any issue), and your post-event goals (email captures, sales targets, social tags). You approve the brief before it goes out.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PHASE 5: EVENT DAYS ─── -->
+<section class="phase" id="event">
+  <div class="phase-inner">
+    <div class="phase-header">
+      <div class="phase-badge">
+        <div class="phase-circle p5">5</div>
+        <div class="phase-line"></div>
+      </div>
+      <div class="phase-heading">
+        <div class="phase-label p5">Phase 5 · Event day(s)</div>
+        <h2>We're on the ground.<br>You're in the loop.</h2>
+        <p>This is what all the preparation is for. We're on-site from load-in to teardown, managing every moving part so the day runs exactly as planned. You're kept updated in real time — photos, attendance numbers, notes on what's working — so you feel present even from the other side of the world.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-3">
+      <div class="phase-card">
+        <div class="phase-card-icon">⏱️</div>
+        <h4>Morning check-in</h4>
+        <p>Every event day starts with a photo drop to you: the space set up and ready, staff in position, doors about to open. You know it looks right before a single guest walks in.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">📲</div>
+        <h4>Live updates throughout</h4>
+        <p>Foot traffic numbers, notable guests, any adjustments we've made, candid photos — we send these throughout the day. You're not waiting until it's over to find out how it went.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">🌙</div>
+        <h4>End-of-day wrap</h4>
+        <p>Each evening we send a day-of summary: estimated attendance, content captured, any press or influencer visits, what worked well, and anything we're adjusting for tomorrow if it's a multi-day event.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-2">
+      <div class="highlight-card dark">
+        <h4>What we manage on the day so you don't have to</h4>
+        <ul class="hc-list">
+          <li>Vendor arrivals, deliveries, and load-in sequence</li>
+          <li>Staff clock-in, positioning, and performance</li>
+          <li>Guest flow, queuing, and capacity management</li>
+          <li>Photographer and content creator coordination</li>
+          <li>Press and influencer check-in and hospitality</li>
+          <li>Real-time problem solving — power issues, late vendors, weather, anything</li>
+          <li>Teardown coordination and venue handover</li>
+        </ul>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-title">If something goes wrong</div>
+        <ul class="checklist">
+          <li><span class="chk dk">✓</span> We carry general liability insurance on all events</li>
+          <li><span class="chk dk">✓</span> Every budget includes a 5–10% contingency float for day-of issues</li>
+          <li><span class="chk dk">✓</span> We have backup vendors on call for last-minute cancellations</li>
+          <li><span class="chk dk">✓</span> You'll be notified immediately if anything significant changes</li>
+          <li><span class="chk dk">✓</span> We handle the fix — you don't need to make calls or chase anyone</li>
+          <li><span class="chk dk">✓</span> Post-event debrief will cover what happened and how it was resolved</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PHASE 6: WRAP ─── -->
+<section class="phase" id="wrap">
+  <div class="phase-inner">
+    <div class="phase-header">
+      <div class="phase-badge">
+        <div class="phase-circle p6">6</div>
+      </div>
+      <div class="phase-heading">
+        <div class="phase-label p6">Phase 6 · Within 5 business days</div>
+        <h2>Teardown done. Report delivered.<br>Results in your hands.</h2>
+        <p>The event is over — but we're not done yet. Within 5 business days of your final event day, you receive a comprehensive post-event report covering everything your team needs to understand the ROI, present results internally, and plan the next one smarter.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-3">
+      <div class="phase-card">
+        <div class="phase-card-icon">📊</div>
+        <h4>Post-event analytics report</h4>
+        <p>Estimated total attendance broken down by day, foot traffic patterns, busiest windows, and comparison to projections. If you had sales targets, we include sell-through data. If you had a sign-up goal, we include capture rates.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">📸</div>
+        <h4>Content assets delivered</h4>
+        <p>All photography and video organized in a shared Drive folder — hero shots, lifestyle images, behind-the-scenes, and video clips. Everything is labeled and ready for your team to use. We include a recommended usage note: which assets are best for which channels.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-icon">💬</div>
+        <h4>Honest debrief</h4>
+        <p>What worked exactly as planned. What we'd do differently next time. Vendor performance notes. Guest feedback if collected. Our recommendations for your next NYC activation, including timing, budget, and format. This is the section most clients say is the most valuable.</p>
+      </div>
+    </div>
+
+    <div class="phase-grid-2">
+      <div class="highlight-card yellow">
+        <h4>What's in the full post-event report</h4>
+        <ul class="hc-list">
+          <li>Total attendance + per-day breakdown</li>
+          <li>Estimated social reach from content and tags</li>
+          <li>Press coverage secured (articles, mentions, features)</li>
+          <li>Influencer content delivered and estimated reach</li>
+          <li>Final budget reconciliation — every dollar accounted for</li>
+          <li>Unused float returned with itemized statement</li>
+          <li>Vendor performance ratings (useful for future events)</li>
+          <li>Our full debrief and recommendations for next time</li>
+        </ul>
+      </div>
+      <div class="checklist-card">
+        <div class="checklist-title">Budget reconciliation explained</div>
+        <ul class="checklist">
+          <li><span class="chk y">✓</span> Full line-by-line statement of every vendor payment made</li>
+          <li><span class="chk y">✓</span> Any unused event budget float is returned to you within 5 business days</li>
+          <li><span class="chk y">✓</span> If any unplanned cost was approved by you mid-event, it's documented here with the approval timestamp</li>
+          <li><span class="chk y">✓</span> No hidden "admin fees" or post-event additions</li>
+          <li><span class="chk y">✓</span> International clients receive reconciliation in USD with Wise transfer confirmation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL PROJECT TIMELINE -->
+<div style="padding: 0 48px 90px; background: var(--cream);">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div class="timeline-strip">
+      <div class="timeline-strip-title">Full project timeline at a glance — 6-week example</div>
+      <div class="tl-row">
+        <div class="tl-step">
+          <div class="tl-dot p1">W1</div>
+          <div class="tl-step-label">Week 1</div>
+          <div class="tl-step-title">Inquiry & proposal</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot p2">W2</div>
+          <div class="tl-step-label">Week 2</div>
+          <div class="tl-step-title">Venue search & moodboard</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot p3">W3</div>
+          <div class="tl-step-label">Week 3</div>
+          <div class="tl-step-title">Venue locked & vendors briefed</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot p4">W4</div>
+          <div class="tl-step-label">Week 4</div>
+          <div class="tl-step-title">Permits filed & run-of-show drafted</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot p5">W5</div>
+          <div class="tl-step-label">Week 5</div>
+          <div class="tl-step-title">Staff briefed & final checks</div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot p6">W6</div>
+          <div class="tl-step-label">Week 6</div>
+          <div class="tl-step-title">Event days & post-event report</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT TO EXPECT -->
+<section class="expect-section">
+  <div class="expect-inner">
+    <div class="section-tag">Working with us</div>
+    <h2>What every client<br>should expect from us</h2>
+    <div class="expect-grid">
+      <div class="expect-card">
+        <div class="expect-icon">🔍</div>
+        <h4>Total transparency on money</h4>
+        <p>You'll never wonder where your budget is. Every dollar is tracked, reported, and approved by you before it's spent. Your production fee and your event budget are always kept separate and clearly presented.</p>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">⚡</div>
+        <h4>Fast, clear communication</h4>
+        <p>We respond to messages within a few hours during business hours. You always have a named point of contact — not a ticket system, not a rotating inbox. If something needs a call, we schedule it same day.</p>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">🎯</div>
+        <h4>We ask before we act</h4>
+        <p>Nothing significant happens without your approval. We'll make small day-of decisions independently to keep things moving — but anything that affects the look, feel, or cost of your event comes to you first.</p>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">🛡️</div>
+        <h4>We own our mistakes</h4>
+        <p>If something goes wrong on our end, we tell you immediately, we fix it at our own cost where possible, and we're honest about what happened in the debrief. We don't blame vendors or hide problems.</p>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">🌍</div>
+        <h4>Remote-first, always</h4>
+        <p>We designed our process for clients who are running a business from somewhere else. Every step is documented, shareable, and async-friendly. You're never left out of the loop just because you're not in New York.</p>
+      </div>
+      <div class="expect-card">
+        <div class="expect-icon">📈</div>
+        <h4>We care about your results</h4>
+        <p>We're not here just to run a smooth event — we're here to help your brand get what it came for. Whether that's press coverage, sales, content, or awareness, we keep your goals front of mind from first call to final report.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNICATION SECTION -->
+<section class="comms-section">
+  <div class="comms-inner">
+    <div class="section-tag">Communication</div>
+    <h2 class="section-title">How we stay in touch<br>throughout your project</h2>
+    <p class="section-sub-text">Remote clients need to feel confident that things are moving — without being flooded with messages. Here's exactly how we communicate at each stage so you're always informed without being overwhelmed.</p>
+    <div class="comms-grid">
+      <div class="comms-card purple">
+        <div class="comms-icon">📁</div>
+        <h4>Shared Google Drive folder</h4>
+        <p>Set up at project kickoff. Every document, moodboard, vendor quote, contract, photo, and report lives here — organized by phase. You can review anything at any time, leave comments, and track version history. This is the single source of truth for your project.</p>
+      </div>
+      <div class="comms-card light">
+        <div class="comms-icon">📞</div>
+        <h4>Milestone calls</h4>
+        <p>We schedule a video call at each major phase: after proposal acceptance, after venue selection, after vendor lock-in, and post-event debrief. These are 20–30 minutes and always have a clear agenda sent in advance. Never a meeting just to check in.</p>
+        <ul>
+          <li>Kickoff call after contract signing</li>
+          <li>Planning review after moodboard + venue selection</li>
+          <li>Pre-event call 1 week before event day</li>
+          <li>Post-event debrief call within 5 business days</li>
+        </ul>
+      </div>
+      <div class="comms-card yellow">
+        <div class="comms-icon">💬</div>
+        <h4>WhatsApp or Slack for day-to-day</h4>
+        <p>For quick questions, photo updates, and fast decisions, we use WhatsApp or Slack — whatever works best for you. This keeps communication fast and out of your email inbox. We respond within a few hours during business hours, and within 30 minutes on event days.</p>
+      </div>
+      <div class="comms-card teal">
+        <div class="comms-icon">📸</div>
+        <h4>Real-time photo updates on event days</h4>
+        <p>During build day and all event days, you receive photo drops throughout — typically morning setup, midday, and end of day. On event days, you also receive attendance estimates and any notable moments. You're never left wondering what's happening.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENTS -->
+<section class="payments-section">
+  <div class="payments-inner">
+    <div class="section-tag" style="color: var(--purple-bright); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px;">Money & payments</div>
+    <div class="payments-grid">
+      <div class="payments-left">
+        <h2>How the money works — clearly.</h2>
+        <p>One of the most common concerns new clients have is getting into a situation where they're out of pocket or surprised by a bill. We've built our payment structure specifically to prevent that from happening — for both sides.</p>
+        <div class="payment-step">
+          <div class="pay-num n1">1</div>
+          <div class="pay-content">
+            <h5>50% production fee at contract signing</h5>
+            <p>This kicks off the project and secures your spot in our calendar. It covers our planning time, venue scouting, moodboard development, and all work done before vendors are engaged. Due via invoice at the time you sign — wire transfer, card, or Wise for international clients.</p>
+          </div>
+        </div>
+        <div class="payment-step">
+          <div class="pay-num n2">2</div>
+          <div class="pay-content">
+            <h5>Event budget funded before vendor payments</h5>
+            <p>Before we pay any vendor, you fund the event escrow with the agreed event budget. We pay vendors from this account with your sign-off. You receive a statement of every payment made. We never front vendor costs from our own pocket.</p>
+          </div>
+        </div>
+        <div class="payment-step">
+          <div class="pay-num n3">3</div>
+          <div class="pay-content">
+            <h5>Remaining 50% due 7 days before event</h5>
+            <p>The final balance of our production fee is due one week before your event. At this point, all vendors are confirmed and the run-of-show is locked. After the event, any unused budget float is returned to you within 5 business days with a full reconciliation statement.</p>
+          </div>
+        </div>
+      </div>
+      <div class="payments-right">
+        <div class="pay-card purple">
+          <div class="pay-card-label">At contract signing</div>
+          <div class="pay-card-amount">50% of fee</div>
+          <div class="pay-card-note">Kicks off the project — planning, scouting, moodboarding</div>
+        </div>
+        <div class="pay-card teal">
+          <div class="pay-card-label">Before vendor payments begin</div>
+          <div class="pay-card-amount">Event budget</div>
+          <div class="pay-card-note">Held in escrow — paid out to vendors with your approval</div>
+        </div>
+        <div class="pay-card yellow">
+          <div class="pay-card-label">7 days before event</div>
+          <div class="pay-card-amount">Remaining 50%</div>
+          <div class="pay-card-note">Final production fee balance — all vendors confirmed by this point</div>
+        </div>
+        <div class="phase-card" style="margin-top: 0; border-radius: 18px;">
+          <div class="phase-card-icon">🌍</div>
+          <h4>International clients</h4>
+          <p>We invoice in USD and accept international wire transfers via Wise. No surprise currency conversion fees. We'll confirm the exact transfer details and amount before anything is due.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-tag">Questions</div>
+    <h2 class="section-title">Things people always<br>want to know</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What if I don't have a clear brief yet?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">That's completely fine — and honestly, most of our best projects started with a vague idea. Fill out the inquiry form with whatever you know: your brand, a rough budget range, and something about what you want to achieve. We'll guide you through the rest on the discovery call. Our job is to ask the right questions and help you figure out what you actually need.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How quickly can you turn around a pop-up?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Our standard lead time is 4–6 weeks for a well-produced activation. In some cases we've moved faster — 2–3 weeks for simpler activations with flexible venue requirements. If your timeline is tight, tell us upfront. We'll be straight with you about what's realistic rather than overpromise and underdeliver.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I make changes mid-project?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — up to a point. Minor changes (a different table layout, swapping a floral color, adjusting staff headcount) can usually be accommodated without issue. Significant changes — new venue, major aesthetic shift, event date change — may affect cost and timeline. We'll always tell you the impact before actioning anything, and nothing changes without your written approval.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What happens if I need to cancel?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Cancellation terms are outlined clearly in your contract. Generally: the 50% deposit is non-refundable once planning has begun, as it covers real work already done. Any event budget that hasn't been committed to vendors is returned to you in full. Vendor deposits already paid are subject to each vendor's own cancellation policy — we'll always flag these before you commit to anything. We handle postponements differently from cancellations — reach out and we'll work with you.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do I need to attend the event?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">No — and many of our clients don't. We're built for remote clients. You'll receive live photo updates, end-of-day summaries, and a full debrief after. If you want to attend, that's always welcome. If you want to join via video call during a key moment, we can arrange that too. But your physical presence is never required for the event to run perfectly.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How do you handle unexpected costs on the day?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Every budget includes a 5–10% contingency float for exactly this reason. Small day-of costs (extra supplies, a quick fix) come from this float without interrupting you. For anything larger or out of scope, we call you immediately, explain what's needed and why, and wait for your approval before spending. We never commit your money without your say-so.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What's the minimum budget needed to work with you?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Our Essentials package starts at a $3,500 production fee, and we typically work with event budgets starting around $8,000–10,000. Below that, it becomes difficult to produce something in NYC that reflects well on your brand — venue costs, permits, and basic vendor minimums add up quickly in this city. We'd rather tell you that upfront than take your money for something that won't deliver the result you want.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can you handle multiple events or an ongoing campaign?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — and we love this kind of work. If you're planning a seasonal calendar, a multi-event campaign, or want an ongoing NYC presence, we offer retainer and campaign pricing that gives you priority scheduling, a dedicated account manager, and better vendor rates across the board. Reach out and we'll put together a custom proposal based on your calendar.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip">
+  <h2>Ready to start<br><span>your activation?</span></h2>
+  <p>You've seen exactly how it works. Now let's talk about your brand. We'll have a proposal to you within 48 hours.</p>
+  <div class="cta-buttons">
+    <a href="index.html#contact" class="btn-yellow">Get a quote in 48 hours ✦</a>
+    <a href="services.html" class="btn-outline-white">See all services →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><span>P</span>op Up Planners</div>
+      <p>NYC-based pop-up production for brands that can't be here — but need to be.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="services.html#brand-activations">Brand Activations</a></li>
+        <li><a href="services.html#remote-production">Remote Production</a></li>
+        <li><a href="services.html#content-press">Content &amp; Press</a></li>
+        <li><a href="services.html#corporate">Corporate Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="#">Who We Serve</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Pop Up Planners LLC. All rights reserved. New York City.</span>
+    <span>Made in NYC ✦</span>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .faq-item, .phase-card, .expect-card, .comms-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      cursor.style.background = 'var(--yellow)';
+      ring.style.opacity = '0.3';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      cursor.style.background = 'var(--purple-bright)';
+      ring.style.opacity = '0.6';
+    });
+  });
+
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Sticky phase nav highlight on scroll
+  const phases = document.querySelectorAll('.phase[id], section[id]');
+  const phaseLinks = document.querySelectorAll('.phase-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    phases.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 160) current = s.id;
+    });
+    phaseLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
