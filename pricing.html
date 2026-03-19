@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Pop Up Planners NYC</title>
+<meta name="description" content="Transparent, flat-fee pricing for NYC pop-up production and brand activations. No hidden costs, no surprises. See exactly what's included at every level.">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple-deep: #2D0A5C;
+    --purple-mid: #6B21C8;
+    --purple-bright: #9B4DFF;
+    --purple-soft: #C084FC;
+    --yellow: #FFE135;
+    --coral: #FF5E5B;
+    --teal: #00D4AA;
+    --cream: #FFF8F0;
+    --dark: #120824;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; cursor: none; }
+
+  .cursor { width: 12px; height: 12px; background: var(--purple-bright); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease, background 0.2s ease; transform: translate(-50%, -50%); }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--purple-bright); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.25s ease; opacity: 0.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,248,240,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(107,33,200,0.08); }
+  .nav-logo { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 900; letter-spacing: -0.02em; color: var(--purple-deep); display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-p { width: 32px; height: 32px; background: var(--purple-bright); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 17px; font-weight: 900; transform: rotate(-4deg); transition: transform 0.2s; }
+  .logo-p:hover { transform: rotate(4deg) scale(1.1); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--purple-deep); opacity: 0.7; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-links a.active { opacity: 1; color: var(--purple-bright); }
+  .nav-cta { background: var(--purple-deep) !important; color: var(--yellow) !important; padding: 10px 22px !important; border-radius: 100px; opacity: 1 !important; font-size: 13px !important; }
+  .nav-cta:hover { background: var(--purple-bright) !important; }
+
+  /* HERO */
+  .page-hero { padding: 160px 48px 90px; background: var(--purple-deep); position: relative; overflow: hidden; }
+  .page-hero::before { content: 'Pricing'; position: absolute; font-family: 'Unbounded', sans-serif; font-size: 180px; font-weight: 900; color: white; opacity: 0.03; bottom: -20px; right: -10px; line-height: 1; pointer-events: none; white-space: nowrap; }
+  .hero-blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; pointer-events: none; }
+  .hb1 { width: 420px; height: 420px; background: var(--purple-bright); top: -120px; right: 80px; }
+  .hb2 { width: 260px; height: 260px; background: var(--teal); bottom: -60px; left: 160px; }
+  .page-hero-inner { position: relative; max-width: 680px; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .breadcrumb a { font-size: 12px; color: white; opacity: 0.45; text-decoration: none; }
+  .breadcrumb a:hover { opacity: 0.8; }
+  .breadcrumb span { font-size: 12px; color: white; opacity: 0.25; }
+  .breadcrumb-current { font-size: 12px; color: var(--yellow); opacity: 0.8; }
+  .page-hero h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(34px, 5vw, 58px); font-weight: 900; color: white; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 20px; }
+  .page-hero h1 span { color: var(--yellow); }
+  .page-hero p { font-size: 16px; color: white; opacity: 0.6; line-height: 1.75; font-weight: 300; max-width: 540px; }
+
+  /* HOW IT WORKS STRIP */
+  .how-strip { background: var(--yellow); padding: 32px 48px; }
+  .how-strip-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .how-strip h3 { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 900; color: var(--purple-deep); letter-spacing: -0.02em; margin-bottom: 6px; }
+  .how-strip p { font-size: 13px; color: var(--purple-deep); opacity: 0.65; font-weight: 300; line-height: 1.6; max-width: 560px; }
+  .how-strip-btn { background: var(--purple-deep); color: var(--yellow); padding: 12px 24px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; font-family: 'Unbounded', sans-serif; letter-spacing: 0.01em; transition: background 0.2s; }
+  .how-strip-btn:hover { background: var(--purple-bright); }
+
+  /* PRICING SECTION */
+  .pricing-section { padding: 90px 48px; background: white; }
+  .pricing-inner { max-width: 1100px; margin: 0 auto; }
+  .section-tag { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; color: var(--purple-bright); }
+  .section-title { font-family: 'Unbounded', sans-serif; font-size: clamp(26px, 3.5vw, 40px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; color: var(--purple-deep); margin-bottom: 16px; }
+  .section-sub { font-size: 15px; line-height: 1.75; color: var(--purple-deep); opacity: 0.6; font-weight: 300; max-width: 520px; margin-bottom: 56px; }
+
+  .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+  @media (max-width: 1100px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .price-card { border-radius: 24px; padding: 40px 32px; border: 1.5px solid rgba(107,33,200,0.1); background: var(--cream); position: relative; transition: transform 0.25s; }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-card.featured { background: var(--purple-deep); color: white; border-color: transparent; box-shadow: 0 24px 60px rgba(45,10,92,0.25); transform: scale(1.03); }
+  .price-card.featured:hover { transform: scale(1.03) translateY(-4px); }
+
+  .featured-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--yellow); color: var(--purple-deep); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 16px; border-radius: 100px; white-space: nowrap; }
+
+  .price-tier { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--purple-bright); margin-bottom: 14px; }
+  .price-card.featured .price-tier { color: var(--purple-soft); }
+
+  .price-amount { font-family: 'Unbounded', sans-serif; font-size: 42px; font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
+  .price-card.featured .price-amount { color: white; }
+  .price-note { font-size: 12px; opacity: 0.5; font-weight: 300; margin-bottom: 28px; }
+
+  .price-divider { height: 1px; background: rgba(107,33,200,0.1); margin-bottom: 24px; }
+  .price-card.featured .price-divider { background: rgba(255,255,255,0.12); }
+
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 32px; }
+  .price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.55; font-weight: 300; color: var(--purple-deep); }
+  .price-card.featured .price-features li { color: white; opacity: 0.85; }
+  .price-features li::before { content: ''; width: 16px; height: 16px; min-width: 16px; background: var(--teal); border-radius: 50%; display: block; margin-top: 1px; flex-shrink: 0; }
+  .price-card.featured .price-features li::before { background: var(--yellow); }
+
+  .btn-price { width: 100%; padding: 14px; border-radius: 100px; font-size: 14px; font-weight: 500; text-align: center; cursor: pointer; border: none; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .btn-outline { background: transparent; border: 1.5px solid rgba(107,33,200,0.2); color: var(--purple-deep); }
+  .btn-outline:hover { border-color: var(--purple-bright); background: rgba(155,77,255,0.05); }
+  .btn-solid { background: var(--yellow); color: var(--purple-deep); font-weight: 600; }
+  .btn-solid:hover { background: #f5d600; transform: translateY(-1px); }
+
+  /* BUDGET NOTE */
+  .budget-note { background: var(--cream); border-radius: 18px; padding: 28px 32px; border: 1px solid rgba(107,33,200,0.08); display: flex; gap: 16px; align-items: flex-start; }
+  .bn-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .bn-text h4 { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: var(--purple-deep); letter-spacing: -0.01em; margin-bottom: 8px; }
+  .bn-text p { font-size: 13px; line-height: 1.7; color: var(--purple-deep); opacity: 0.65; font-weight: 300; }
+
+  /* WHAT'S NOT INCLUDED */
+  .not-included { padding: 90px 48px; background: var(--cream); }
+  .ni-inner { max-width: 1100px; margin: 0 auto; }
+  .ni-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px; }
+  .ni-card { border-radius: 18px; padding: 28px 24px; background: white; border: 1px solid rgba(107,33,200,0.08); }
+  .ni-icon { font-size: 22px; margin-bottom: 12px; }
+  .ni-card h4 { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: var(--purple-deep); letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3; }
+  .ni-card p { font-size: 13px; line-height: 1.65; color: var(--purple-deep); opacity: 0.6; font-weight: 300; }
+
+  /* PAYMENT SECTION */
+  .payment-section { padding: 90px 48px; background: white; }
+  .payment-inner { max-width: 1100px; margin: 0 auto; }
+  .payment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 52px; }
+  .payment-steps { display: flex; flex-direction: column; gap: 0; }
+  .payment-step { display: flex; gap: 20px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid rgba(107,33,200,0.08); }
+  .payment-step:last-child { border-bottom: none; }
+  .ps-num { width: 44px; height: 44px; min-width: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 900; flex-shrink: 0; }
+  .ps-num.n1 { background: rgba(155,77,255,0.12); color: var(--purple-bright); }
+  .ps-num.n2 { background: rgba(0,212,170,0.15); color: #007a62; }
+  .ps-num.n3 { background: rgba(255,225,53,0.2); color: #7a5e00; }
+  .ps-content h5 { font-size: 14px; font-weight: 600; color: var(--purple-deep); margin-bottom: 6px; }
+  .ps-content p { font-size: 13px; line-height: 1.65; color: var(--purple-deep); opacity: 0.6; font-weight: 300; }
+  .payment-cards { display: flex; flex-direction: column; gap: 14px; }
+  .pay-card { border-radius: 16px; padding: 22px 24px; }
+  .pay-card.purple { background: var(--purple-deep); color: white; }
+  .pay-card.teal   { background: var(--teal); color: var(--purple-deep); }
+  .pay-card.yellow { background: var(--yellow); color: var(--purple-deep); }
+  .pay-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; opacity: 0.55; margin-bottom: 6px; }
+  .pay-amount { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .pay-note { font-size: 12px; opacity: 0.6; font-weight: 300; }
+
+  /* FAQ */
+  .faq-section { padding: 90px 48px; background: var(--purple-deep); }
+  .faq-inner { max-width: 1100px; margin: 0 auto; }
+  .faq-section .section-tag { color: var(--yellow); }
+  .faq-section .section-title { color: white; margin-bottom: 52px; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .faq-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; }
+  .faq-q { padding: 20px 22px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; gap: 16px; }
+  .faq-q span { font-size: 14px; font-weight: 500; color: white; line-height: 1.4; }
+  .faq-toggle { width: 28px; height: 28px; min-width: 28px; border-radius: 8px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; color: var(--yellow); font-size: 18px; font-weight: 300; transition: transform 0.25s, background 0.2s; flex-shrink: 0; }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); background: var(--yellow); color: var(--purple-deep); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-item.open .faq-a { max-height: 300px; }
+  .faq-a-inner { padding: 0 22px 20px; font-size: 13px; line-height: 1.75; color: white; opacity: 0.6; font-weight: 300; }
+
+  /* CTA */
+  .cta-strip { padding: 90px 48px; background: var(--cream); text-align: center; position: relative; overflow: hidden; }
+  .cta-strip::before { content: 'P'; position: absolute; font-family: 'Unbounded', sans-serif; font-size: 500px; font-weight: 900; color: var(--purple-bright); opacity: 0.03; top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; line-height: 1; }
+  .cta-strip h2 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 3.5vw, 42px); font-weight: 900; color: var(--purple-deep); letter-spacing: -0.03em; line-height: 1.1; max-width: 520px; margin: 0 auto 14px; position: relative; }
+  .cta-strip h2 span { color: var(--purple-bright); }
+  .cta-strip p { font-size: 15px; color: var(--purple-deep); opacity: 0.55; margin: 0 auto 36px; font-weight: 300; max-width: 380px; position: relative; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn-primary { background: var(--purple-bright); color: white; padding: 16px 36px; border-radius: 100px; font-size: 15px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(155,77,255,0.35); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(155,77,255,0.45); }
+  .btn-ghost { background: transparent; color: var(--purple-deep); padding: 16px 32px; border-radius: 100px; font-size: 15px; font-weight: 500; text-decoration: none; border: 1.5px solid rgba(45,10,92,0.2); display: inline-flex; align-items: center; gap: 8px; transition: border-color 0.2s, background 0.2s; }
+  .btn-ghost:hover { border-color: var(--purple-bright); background: rgba(155,77,255,0.05); }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: white; padding: 60px 48px 40px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; flex-wrap: wrap; gap: 40px; }
+  .footer-brand .footer-logo { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 900; color: white; margin-bottom: 12px; }
+  .footer-brand .footer-logo span { color: var(--purple-bright); }
+  .footer-brand p { font-size: 13px; opacity: 0.4; max-width: 220px; line-height: 1.6; font-weight: 300; }
+  .footer-links h5 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; margin-bottom: 16px; font-weight: 600; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links ul a { color: white; text-decoration: none; font-size: 13px; opacity: 0.6; transition: opacity 0.2s; }
+  .footer-links ul a:hover { opacity: 1; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; font-size: 12px; opacity: 0.35; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-p">P</div>
+    Pop Up Planners
+  </a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="who-we-serve.html">Who We Serve</a></li>
+    <li><a href="pricing.html" class="active">Pricing</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Get a Quote →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="hero-blob hb1"></div>
+  <div class="hero-blob hb2"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span class="breadcrumb-current">Pricing</span>
+    </div>
+    <h1>Flat fees.<br><span>No surprises.</span></h1>
+    <p>From focused brand pop-ups to six-figure campaign activations. Our production fee covers our time and expertise. Your event budget covers the actual event. Always separate, always transparent, always agreed on before we spend a dollar.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS STRIP -->
+<div class="how-strip">
+  <div class="how-strip-inner">
+    <div>
+      <h3>Fee vs. event budget — what's the difference?</h3>
+      <p>Our fee is what you pay us. Your event budget pays for the venue, vendors, permits, staffing, and build costs. We manage that budget on your behalf and report every dollar spent. You always approve before we commit anything.</p>
+    </div>
+    <a href="how-it-works.html" class="how-strip-btn">See how it works →</a>
+  </div>
+</div>
+
+<!-- PRICING CARDS -->
+<section class="pricing-section">
+  <div class="pricing-inner">
+    <div class="section-tag">Our packages</div>
+    <h2 class="section-title">Choose your level<br>of production</h2>
+    <p class="section-sub">All packages include a dedicated point of contact, full vendor coordination, and a post-event report. The difference is scale, depth, and scope.</p>
+
+    <div class="pricing-grid">
+
+      <!-- ESSENTIALS -->
+      <div class="price-card">
+        <div class="price-tier">Essentials</div>
+        <div class="price-amount">$3,500</div>
+        <div class="price-note">Production fee · focused activations</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Venue sourcing and coordination</li>
+          <li>Vendor management (up to 4 vendors)</li>
+          <li>Permit research and filing assistance</li>
+          <li>Day-of production management</li>
+          <li>Run-of-show document</li>
+          <li>Post-event summary report</li>
+        </ul>
+        <button class="btn-price btn-outline" onclick="window.location='index.html#contact'">Get started →</button>
+      </div>
+
+      <!-- FULL PRODUCTION -->
+      <div class="price-card featured">
+        <div class="featured-badge">Most Popular</div>
+        <div class="price-tier">Full Production</div>
+        <div class="price-amount">$7,500</div>
+        <div class="price-note">Production fee · full-scale activations</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Concept development and moodboarding</li>
+          <li>Full vendor network — build, A/V, florals, staffing</li>
+          <li>Permit filing and NYC compliance</li>
+          <li>Brand-trained on-site staff</li>
+          <li>Photography and video coordination</li>
+          <li>Influencer and press logistics support</li>
+          <li>Detailed post-event analytics report</li>
+        </ul>
+        <button class="btn-price btn-solid" onclick="window.location='index.html#contact'">Book this package</button>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="price-card">
+        <div class="price-tier">Premium</div>
+        <div class="price-amount">$15,000</div>
+        <div class="price-note">Production fee · high-impact campaigns</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Everything in Full Production</li>
+          <li>Multi-day or multi-location activation</li>
+          <li>Custom fabrication and build design</li>
+          <li>Dedicated on-site production team</li>
+          <li>Full press and influencer program</li>
+          <li>Campaign-level content strategy</li>
+          <li>Weekly strategy calls throughout</li>
+          <li>Executive-level post-event debrief</li>
+        </ul>
+        <button class="btn-price btn-outline" onclick="window.location='index.html#contact'">Let's talk →</button>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="price-card" style="background: var(--dark); border-color: transparent; color: white;">
+        <div class="price-tier" style="color: var(--yellow);">Enterprise</div>
+        <div class="price-amount" style="color: white;">Custom</div>
+        <div class="price-note">Large-scale, multi-event, or agency work</div>
+        <div class="price-divider" style="background: rgba(255,255,255,0.1);"></div>
+        <ul class="price-features" style="color: white;">
+          <li style="color:white; opacity:0.85;">Six-figure event budgets managed end to end</li>
+          <li style="color:white; opacity:0.85;">Multi-city or multi-day campaign production</li>
+          <li style="color:white; opacity:0.85;">Agency and brand partnership work</li>
+          <li style="color:white; opacity:0.85;">Dedicated senior producer assigned</li>
+          <li style="color:white; opacity:0.85;">White-glove vendor and talent sourcing</li>
+          <li style="color:white; opacity:0.85;">Full PR and media amplification support</li>
+          <li style="color:white; opacity:0.85;">Priority access and ongoing retainer option</li>
+        </ul>
+        <button class="btn-price" style="background: var(--yellow); color: var(--purple-deep); font-weight: 700;" onclick="window.location='index.html#contact'">Start the conversation</button>
+      </div>
+
+    </div>
+
+    <div class="budget-note">
+      <div class="bn-icon">💡</div>
+      <div class="bn-text">
+        <h4>Your event budget is separate from our fee</h4>
+        <p>Every proposal includes a line-by-line event budget covering venue, vendors, permits, staffing, and build costs. This budget is funded by you into a dedicated account before we pay any vendor. We never front costs ourselves and we never spend without your approval. Any unused budget is returned to you after the event with a full reconciliation statement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S NOT INCLUDED -->
+<section class="not-included">
+  <div class="ni-inner">
+    <div class="section-tag">Clarity on scope</div>
+    <h2 class="section-title">What our fee<br>does not cover</h2>
+    <p style="font-size:15px; line-height:1.75; color:var(--purple-deep); opacity:0.6; font-weight:300; max-width:520px; margin-bottom:0;">These costs are real and normal parts of any NYC event. They sit in your event budget, not our fee, and you approve every one before we commit to it.</p>
+    <div class="ni-grid">
+      <div class="ni-card">
+        <div class="ni-icon">🏢</div>
+        <h4>Venue rental</h4>
+        <p>The cost of the space itself. This varies widely depending on neighborhood, size, and duration. We negotiate on your behalf and present options across a range of price points.</p>
+      </div>
+      <div class="ni-card">
+        <div class="ni-icon">🚚</div>
+        <h4>Vendor costs</h4>
+        <p>Furniture rental, fabrication, florals, A/V, signage, catering, and any other physical elements of the event. All quoted and approved before we book anything.</p>
+      </div>
+      <div class="ni-card">
+        <div class="ni-icon">👥</div>
+        <h4>On-site staffing</h4>
+        <p>Brand ambassadors, check-in hosts, sales associates. We source, brief, and manage them. Their hourly rates come from your event budget, not our fee.</p>
+      </div>
+      <div class="ni-card">
+        <div class="ni-icon">📋</div>
+        <h4>Permits and filing fees</h4>
+        <p>NYC permit costs vary by event type and location. We handle the filing. The fees themselves are paid from your event budget and shown in your proposal upfront.</p>
+      </div>
+      <div class="ni-card">
+        <div class="ni-icon">📸</div>
+        <h4>Photography and video</h4>
+        <p>Content crew day rates are part of your event budget. We coordinate everything. Included in Full Production package coordination, but the crew cost is yours.</p>
+      </div>
+      <div class="ni-card">
+        <div class="ni-icon">🛡️</div>
+        <h4>Event insurance</h4>
+        <p>We carry general liability insurance on all events. Additional coverage specific to your event or venue requirements is a separate cost and flagged in your proposal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT STRUCTURE -->
+<section class="payment-section">
+  <div class="payment-inner">
+    <div class="section-tag">Payment structure</div>
+    <h2 class="section-title">How and when<br>you pay</h2>
+    <p style="font-size:15px; line-height:1.75; color:var(--purple-deep); opacity:0.6; font-weight:300; max-width:500px; margin-bottom:0;">Designed so you're never out of pocket and we're never chasing reimbursement. Simple, fair, and fully transparent.</p>
+    <div class="payment-grid">
+      <div class="payment-steps">
+        <div class="payment-step">
+          <div class="ps-num n1">1</div>
+          <div class="ps-content">
+            <h5>50% deposit at contract signing</h5>
+            <p>This kicks off the project and secures your place in our schedule. It covers venue scouting, moodboarding, planning calls, and all work done before vendors are engaged. Due via invoice when you sign.</p>
+          </div>
+        </div>
+        <div class="payment-step">
+          <div class="ps-num n2">2</div>
+          <div class="ps-content">
+            <h5>Event budget funded before vendor payments</h5>
+            <p>Before we pay a single vendor, you fund the event budget into a dedicated account. We pay from there with your sign-off on every commitment. You receive a statement of every payment made.</p>
+          </div>
+        </div>
+        <div class="payment-step">
+          <div class="ps-num n3">3</div>
+          <div class="ps-content">
+            <h5>Remaining 50% due one week before the event</h5>
+            <p>The final balance of our production fee is due seven days before your event. By this point, all vendors are confirmed and the run-of-show is locked. Any unused event budget is returned to you within five business days of wrap.</p>
+          </div>
+        </div>
+      </div>
+      <div class="payment-cards">
+        <div class="pay-card purple">
+          <div class="pay-label">At contract signing</div>
+          <div class="pay-amount">50% of production fee</div>
+          <div class="pay-note">Kicks off planning, scouting, and moodboarding</div>
+        </div>
+        <div class="pay-card teal">
+          <div class="pay-label">Before vendor payments begin</div>
+          <div class="pay-amount">Full event budget</div>
+          <div class="pay-note">Held in escrow, paid out with your approval</div>
+        </div>
+        <div class="pay-card yellow">
+          <div class="pay-label">One week before event</div>
+          <div class="pay-amount">Remaining 50%</div>
+          <div class="pay-note">All vendors confirmed by this point</div>
+        </div>
+        <div class="ni-card" style="margin-top:0;">
+          <div class="ni-icon">🌍</div>
+          <h4>International clients</h4>
+          <p>We invoice in USD and accept wire transfers via Wise. No surprise conversion fees. All budget reconciliation is provided in USD with transfer confirmations included.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-tag">Questions</div>
+    <h2 class="section-title">Pricing questions,<br>answered directly</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I get a quote before committing to a package?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes, always. Fill out our inquiry form and we'll send a full written proposal within 48 hours. This includes our recommended package, a line-by-line event budget estimate, and our production fee. No commitment or deposit required until you decide to move forward.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What if my event is smaller or simpler than the Essentials package?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Reach out and tell us what you have in mind. Smaller activations are possible and we'll tell you honestly whether the scope warrants our involvement. We'd rather give you a realistic answer upfront than take on a project that isn't a good fit for either of us.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I add services to a package after we've started?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. If your scope expands during planning, we'll issue a change order with the additional cost clearly stated. Nothing gets added to your invoice without your written approval first.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Is the deposit refundable if I cancel?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">The 50% deposit covers real work already done and is non-refundable once planning has begun. Any event budget that hasn't been committed to vendors is returned in full. If you're postponing rather than cancelling, reach out and we'll work with you on rescheduling.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you charge more for events outside Manhattan?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Not as a rule. Our production fee is based on scope and complexity, not location within NYC. Williamsburg, Long Island City, and other boroughs are no problem. If a project required significant travel outside New York City, we'd discuss that upfront in the proposal.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What does Enterprise or large-scale production look like?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Enterprise engagements are fully custom. We've managed six-figure event budgets for brand campaigns, multi-day activations, and agency partnerships. At this level you get a dedicated senior producer, white-glove vendor sourcing, full press and influencer amplification support, and priority access throughout the year. If you're planning something significant, reach out and we'll schedule a strategy call to scope it properly.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What's included in the Premium package specifically?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Premium is built for brands doing high-impact activations — multi-day events, custom fabrication, a full press and influencer program, and campaign-level content strategy. You get everything in Full Production plus a dedicated on-site production team, weekly strategy calls throughout the project, and an executive-level post-event debrief. It's the right choice when the activation is a major brand moment, not just an event.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <h2>Ready to get<br>a <span>real number?</span></h2>
+  <p>Tell us about your event and we'll send a full proposal with a line-by-line budget within 48 hours.</p>
+  <div class="cta-buttons">
+    <a href="index.html#contact" class="btn-primary">Get your proposal ✦</a>
+    <a href="how-it-works.html" class="btn-ghost">See how it works →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo"><span>P</span>op Up Planners</div>
+      <p>NYC-based pop-up production for brands that can't be here but need to be.</p>
+    </div>
+    <div class="footer-links">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="services.html#brand-activations">Brand Activations</a></li>
+        <li><a href="services.html#remote-production">Remote Production</a></li>
+        <li><a href="services.html#content-press">Content &amp; Press</a></li>
+        <li><a href="services.html#corporate">Corporate Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="how-it-works.html">How It Works</a></li>
+        <li><a href="who-we-serve.html">Who We Serve</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Pop Up Planners LLC. All rights reserved. New York City.</span>
+    <span>Made in NYC ✦</span>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .price-card, .ni-card, .faq-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      cursor.style.background = 'var(--yellow)';
+      ring.style.opacity = '0.3';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      cursor.style.background = 'var(--purple-bright)';
+      ring.style.opacity = '0.6';
+    });
+  });
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
